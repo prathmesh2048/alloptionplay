@@ -4,14 +4,14 @@ import csv
 import pymysql
 
 directory = 'files'
-db = pymysql.connect(host='127.0.0.1',
-                     user='root',
-                     password='titan#12',
-                     database='alloptionplays')
 # db = pymysql.connect(host='127.0.0.1',
-                    #  user='alloptionplays',
-                    #  password='alloptionplays@123',
-                    #  database='alloptionplays')
+#                      user='root',
+#                      password='titan#12',
+#                      database='alloptionplays')
+db = pymysql.connect(host='127.0.0.1',
+                     user='alloptionplays',
+                     password='alloptionplays@123',
+                     database='alloptionplays')
 
 # funtion to load the csv data into the prescribed databse
 def load_csv_to_db(filename):
