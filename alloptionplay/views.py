@@ -1,4 +1,3 @@
-from tkinter import RIGHT
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.db import connection
