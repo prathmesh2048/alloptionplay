@@ -1,13 +1,837 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Document</title>
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+
 <body>
-    <h1>WOrking!</h1>
+
+    <div class="d-flex wrap" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">Selections -:</div>
+            <div class="p-1 section-1" style="display: flex;">
+                <div class="col-md-6 text-center ">
+
+                    <div class="card">
+                        <div class="card-body Ticker">
+                            <table class="table table-hover">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">Tickers</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="visibticker" style="display:contents">
+
+                
+                                    {% for ticker in Ticker_list %}
+                                    {% if forloop.counter == 1 %}
+                                    <tr>
+                                        <td id="{{ticker}}" onclick="getChartData(this)"
+                                            class="table-success ticker_success">
+                                            {{ticker}}
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td id="{{ticker}}" onclick="getChartData(this)">
+                                            {{ticker}}
+                                        </td>
+                                    </tr>
+
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                            <div class="invisibticker" style="display:none">
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-md-6 text-center ">
+                    <div class="card">
+                        <div class="card-body Dates">
+                            <table class="table table-hover">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">Dates</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for date in Dates_list %}
+                                    {% if forloop.counter == 1 %}
+                                    <tr>
+                                        <td id="{{date}}" onclick="getStrategies(this)"
+                                            class="table-success date_success">
+                                            {{date}}
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td id="{{date}}" onclick="getStrategies(this)">
+                                            {{date}}
+                                        </td>
+                                    </tr>
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-1 section-2" style="display: flex;">
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body Fri">
+                            <!-- <div class="bg-secondary">
+                                <h5 class="card-title text-white p-1">Fri exp</h5>
+                            </div> -->
+                            <table class="table table-hover">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">Fri Exp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input friexp" type="checkbox" id="fri_checked">
+                                <label class="form-check-label" for="fri_checked">Fri Exp</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body DB">
+                            <table class="table table-hover">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">DB</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for db in db_list %}
+                                    {% if forloop.counter == 1 %}
+                                    <tr>
+                                        <td id="{{db}}" onclick="getStrategies(this)"
+                                            class="table-success db_success">
+                                            {{db}}
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td id="{{db}}Right">
+                                            {{db}}
+                                        </td>
+                                    </tr>
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body Right-Date">
+                            <table class="table table-hover">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">Right</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for date in Right %}
+                                    {% if forloop.counter == 1 %}
+                                    <tr>
+                                        <td id="{{date}}" onclick="getStrategies(this)"
+                                            class="table-success date_success">
+                                            {{date}}
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td id="{{date}}Right">
+                                            {{date}}
+                                        </td>
+                                    </tr>
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-1 section-3">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-body Strategies">
+                            <div>
+                                <table class="table table-hover">
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th scope="col">Strategies</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="visibstat" style="display:contents">
+
+                                        <tr>
+                                            <td id="stat_none" onclick="getTickers(this)">
+                                                None
+                                            </td>
+                                        </tr>
+                                        {% for stat in strategies_list %}
+                                        {% if forloop.counter == 1 %}
+                                        <tr>
+                                            <td id="{{stat}}" onclick="getTickers(this)"
+                                                class="table-success stat_success">
+                                                {{stat}}
+                                            </td>
+                                        </tr>
+                                        {% else %}
+                                        <tr>
+                                            <td id="{{stat}}" onclick="getTickers(this)">
+                                                {{stat}}
+                                            </td>
+                                        </tr>
+
+                                        {% endif %}
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div class="invisibstat" style="display:none">
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="container-fluid">
+                <!-- <h1 class="mt-4">Graph Section -:</h1> -->
+                <div id="LineCharts">
+
+                </div>
+               
+                <div id="StackedBarCharts">
+                    
+                </div>
+
+                <div id="CandleStickChart">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"
+        integrity="sha512-bwD3VD/j6ypSSnyjuaURidZksoVx3L1RPvTkleC48SbHCZsemT3VKMD39KknPnH728LLXVMTisESIBOAb5/W0Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        var csrftoken = '{{ csrf_token }}';
+        prev_candle = [];
+    </script>
+    <script src="{% static 'js/home.js' %}"></script>
+    <!-- default candlestick chart -->
+    <script>
+
+    var options = {
+        series: [
+                {
+                    name: 'Candlestick',
+                    type: 'candlestick',
+                    data: [
+                        {% for r in chartdata_obj %}
+                        {
+                            x: '{{r.0}}',
+                            y: [parseInt({{ r.1}}), parseInt({{ r.2}}), parseInt({{r.3 }}), parseInt({{ r.4}})]
+                        },
+                        {% endfor %}
+                    ]
+        },{
+            name: 'Short EMA',
+                type: 'line',
+                    data: [
+                        {% for r in chartdata_obj %}
+                            {
+                                x: '{{r.0}}',
+                                y: [parseInt({{ r.6}})]
+                            },
+                        {% endfor %}
+                    ]
+        },{
+            name: 'Medium EMA',
+                type: 'line',
+                    data: [
+                        {% for r in chartdata_obj %}
+                        {
+                            x: '{{r.0}}',
+                                y: [parseInt({{ r.7}})]
+                                },
+                        {% endfor %}
+                    ]
+        }, 
+        {
+            name: 'Long EMA',
+                type: 'line',
+                    data: [
+
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.8}})]
+                    },
+                    {% endfor %}
+
+                    ]
+        },
+        {
+            name: 'Support',
+                type: 'line',
+                    data: [
+                        {% for r in chartdata_obj %}
+                        {
+                            x: '{{r.0}}',
+                                y: [parseInt({{ r.12}})]
+                                },
+                        {% endfor %}
+                    ]
+        },
+        {   
+            name: 'Resistance',
+                type: 'line',
+                    data: [
+                        {% for r in chartdata_obj %}
+                        {
+                            x: '{{r.0}}',
+                                y: [parseInt({{ r.13}})]
+                                },
+                        {% endfor %}
+                    ]
+        }, 
+         {   
+            name: 'vamp',
+            type: 'line',
+            data: [
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.31}})]
+                    },
+                    {% endfor %}
+                ]
+        }, 
+        {   
+            name: 'bottom_value',
+            type: 'line',
+            data: [
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.32}})]
+                    },
+                    {% endfor %}
+            ]
+        },
+        {   
+            name: 'top_value',
+            type: 'line',
+            data: [
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.33}})]
+                    },
+                    {% endfor %}
+             ]
+        },
+        {   
+            name: 'supplyline_high',
+            type: 'line',
+            data: [
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.34}})]
+                    },
+                    {% endfor %}
+            ]
+        },
+        {   
+            name: 'supplyline_low',
+            type: 'line',
+            data: [
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.35}})]
+                    },
+                    {% endfor %}
+            ]
+        },
+        {   
+            name: 'demandline_high',
+            type: 'line',
+            data: [
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.36}})]
+                    },
+                    {% endfor %}
+            ]
+        },
+        {   
+            name: 'demandline_low',
+            type: 'line',
+            data: [
+                    {% for r in chartdata_obj %}
+                    {
+                        x: '{{r.0}}',
+                        y: [parseInt({{ r.37}})]
+                    },
+                    {% endfor %}
+            ]
+        }
+        ],
+        chart: {
+            height: 300,
+            type: 'line',
+            animations: {
+                enabled:false
+            }
+        },
+        stroke: {
+            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2,2,2]
+        },
+        colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(77, 167, 75)','rgb(77, 167, 75)'],
+            // text: 'CandleStick Chart - Category X-axis',
+            title: {
+            align: 'left'
+        },
+
+        legend: {
+            show: false,
+        },
+        // annotations: {
+        //     xaxis: [
+        //         {
+        //             //x: 'Oct 06 14:00',
+        //             borderColor: '#00E396',
+        //             label: {
+        //                 borderColor: '#00E396',
+        //                 style: {
+        //                     fontSize: '12px',
+        //                     color: '#fff',
+        //                     background: '#00E396'
+        //                 },
+        //                 orientation: 'horizontal',
+        //                 offsetY: 7,
+        //                 //text: 'Annotation Test'
+        //             }
+        //         }
+        //     ]
+        // },
+        tooltip: {
+            enabled: true,
+        },
+        xaxis: {
+            type: 'category',
+                legend: {
+                horizontalAlign: 'right',
+            },
+
+            labels: {
+                rotate: -90,
+                    formatter: function(val) {
+                        return dayjs(val).format('MM/DD')
+                    }
+            }
+
+        },
+        yaxis: {
+            tooltip: {
+                enabled: true
+            },
+            labels: {
+
+                formatter: function(val) {
+                    return Math.floor(val)
+                }
+            }
+        }
+        
+        };
+
+        var chart1 = new ApexCharts(document.querySelector("#CandleStickChart"), options);
+        chart1.render();
+        prev_candle.push(chart1)
+
+
+
+// DEFAULT LINE CHARTS SECTION -:
+    let lineoptions = {
+        
+        series: [
+        {
+            name:"positive_directional_index_indicator",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.9 }}),
+            {% endfor %}
+              
+            ]
+        },
+        {
+            name:"negative_directional_index_indicator",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.10 }}),
+            {% endfor %}
+              
+            ]
+        },
+        
+        {
+            name:"zero_line",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.23 }}),
+            {% endfor %}
+              
+            ]
+        },
+        {
+            name:"twenty_five_line",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.24 }}),
+            {% endfor %}
+              
+            ]
+        },
+        {
+            name:"forty_line",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.25 }}),
+            {% endfor %}
+              
+            ]
+        },
+        {
+            name:"neg_twenty_five_line",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.26 }}),
+            {% endfor %}
+              
+            ]
+        },
+        {
+            name: 'neg_forty_line',
+            data: [
+                
+            {% for r in chartdata_obj %}
+     
+                parseInt({{ r.27 }}),
+                
+            {% endfor %}
+            ]
+        },
+        {
+            name:"max_avg_upper",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.28 }}),
+            {% endfor %}
+              
+            ]
+        },
+        {
+            name:"min_avg_low",
+            data: [
+              
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.28 }}),
+            {% endfor %}
+              
+            ]
+        }
+        // 4 - 7
+        
+      ],
+      colors : ["rgb(77, 167, 75)","rgb(255, 0, 0)","rgb(0, 0, 255)","rgb(255, 0, 0)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(0, 0, 0)","rgb(0, 0, 0)"],
+        chart: {
+
+            height: 250,
+            type: 'line',
+            animations: {
+                enabled:false
+            }
+        },
+        zoom: {
+          type: 'x',
+          enabled: true,
+          autoScaleYaxis: true
+        },
+        events: {
+          beforeZoom: function(ctx) {
+              // we need to clear the range as we only need it on the iniital load.
+              ctx.w.config.xaxis.range = undefined
+          }
+      },
+        toolbar: {
+          autoSelected: 'zoom'
+        }
+      ,
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 2,
+      },
+    //   annotations: {
+    //   yaxis: [
+    //       {
+          
+    //         borderColor: '#000000',
+    //         label: {
+    //             style: {
+    //             color: '#000000',
+    //             width:'10px',
+    //             },
+                
+    //         }
+    //       }
+    //   ]
+    //   },
+      legend:{
+          show:false,
+      },
+      xaxis: {
+      // range: range,
+        categories: [
+          
+        {% for d in  chartdata_obj %}
+                
+                moment(moment("{{ d.0 }}",'YYYY-MM-DD')).toDate(),
+        {% endfor %}
+          
+
+          
+        ],
+        labels:{
+            rotate:-90,
+            formatter: function(val) {
+            return dayjs(val).format('MM/DD')
+          },
+          style: {
+             
+             fontSize: '12px',
+               
+         }
+        }
+        
+      }
+      
+    };
+
+    let linechart = new ApexCharts(document.querySelector("#LineCharts"), lineoptions);
+    linechart.render();
+
+
+    // code for stacked bar charts -:
+    var StackedBarChartsoptions = {
+          series: [{
+          data: [
+             {% for r in chartdata_obj %}
+     
+                    parseInt({{ r.19 }}),
+                
+            {% endfor %}
+          ]
+        }, {
+          data: [
+             {% for r in chartdata_obj %}
+     
+                    parseInt({{ r.18 }}),
+                
+            {% endfor %}
+          ]
+        }, {
+          data: [
+             {% for r in chartdata_obj %}
+     
+                    parseInt({{ r.16 }}),
+                
+            {% endfor %}
+          ]
+        }, {
+          data: [
+             {% for r in chartdata_obj %}
+     
+                parseInt({{ r.17 }}),
+                
+            {% endfor %}
+          ]
+        }, {
+          data: [
+             {% for r in chartdata_obj %}
+     
+                    parseInt({{ r.20 }}),
+                
+            {% endfor %}
+          ]
+        },
+        {
+          data: [
+             {% for r in chartdata_obj %}
+     
+                    parseInt({{ r.21 }}),
+                
+            {% endfor %}
+          ]
+        },
+        {
+          data: [
+             {% for r in chartdata_obj %}
+     
+                    parseInt({{ r.22 }}),
+                
+            {% endfor %}
+          ]
+        }],
+          chart: {
+          type: 'bar',
+          height: 175,
+          stacked: true,
+          stackType: '100%'
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+          },
+        },
+        stroke: {
+          width: 1,
+          colors: ['#fff']
+        },
+        xaxis: {
+      // range: range,
+        categories: [
+          
+        {% for d in  chartdata_obj %}
+                moment(moment("{{ d.0 }}",'YYYY-MM-DD')).toDate(),
+        {% endfor %}
+          
+
+          
+        ],
+        labels:{
+            rotate:-90,
+            formatter: function(val) {
+            return dayjs(val).format('MM/DD')
+          },
+          style: {
+             
+             fontSize: '12px',
+               
+         }
+        }
+        
+      },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + "K"
+            }
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        legend: {
+          show:false
+        }
+        };
+
+        var StackedBarCharts = new ApexCharts(document.querySelector("#StackedBarCharts"), StackedBarChartsoptions);
+        StackedBarCharts.render();
+
+    </script>
+
+
 </body>
+
 </html>

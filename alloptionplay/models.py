@@ -50,6 +50,11 @@ class info(models.Model):
 
     def __str__(self):
         return self.ticker
+    class Meta:
+        indexes = [
+            models.Index(fields=['ticker',]),
+            models.Index(fields=['date',]),
+        ]
 
 class data(models.Model):
     db = models.CharField(max_length=250,null=True)
@@ -69,3 +74,9 @@ class data(models.Model):
 
     def __str__(self):
         return self.industry
+    class Meta:
+        indexes = [
+            models.Index(fields=['strategy',]),
+            models.Index(fields=['list_date',]),
+            models.Index(fields=['ticker',]),
+        ]

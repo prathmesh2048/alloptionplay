@@ -1,0 +1,64 @@
+#wrapper {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  transition: margin 0.1s ease-out;
+  width: 40%;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+.Ticker,
+.Dates,
+.Fri,
+.Right-Date,
+.DB,
+.Strategies {
+  overflow-y: auto;
+  height: 23vh;
+}
+
+.section-3 {
+  display: flex;
+  width: 80%;
+}
+.list-group-item {
+  padding: 0.16rem !important;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+  margin-left: 0;
+}
+.card-body {
+  padding: 0rem !important;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: -38rem;
+  }
+}
+li {
+  padding-left: 0pt;
+}
