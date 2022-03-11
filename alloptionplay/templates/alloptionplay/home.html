@@ -63,7 +63,6 @@
 
                         </div>
 
-
                     </div>
                 </div>
                 <div class="col-md-6 text-center ">
@@ -288,172 +287,257 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"
         integrity="sha512-bwD3VD/j6ypSSnyjuaURidZksoVx3L1RPvTkleC48SbHCZsemT3VKMD39KknPnH728LLXVMTisESIBOAb5/W0Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script>
         var csrftoken = '{{ csrf_token }}';
         prev_candle = [];
+
+        // candle data -:
+        Candlestick_data_array = [
+            {% for r in chartdata_obj %}
+                {
+                    x: '{{r.0}}',
+                    y: [parseInt({{ r.1}}), parseInt({{ r.2}}), parseInt({{r.3 }}), parseInt({{ r.4}})]
+                },
+            {% endfor %}
+        ];
+        Short_EMA_data_array = [
+            {% for r in chartdata_obj %}
+                {
+                    x: '{{r.0}}',
+                    y: [parseInt({{ r.6}})]
+                },
+            {% endfor %}
+        ];
+        Medium_EMA_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.7}})]
+            },
+            {% endfor %}
+        ];
+        Long_EMA_data_array = [
+            {% for r in chartdata_obj %}
+                {
+                    x: '{{r.0}}',
+                    y: [parseInt({{ r.8}})]
+                },
+            {% endfor %}
+        ];
+        Support_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.12}})]
+                },
+            {% endfor %}        
+        ];
+        Resistance_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.13}})]
+                },
+            {% endfor %}
+        ];
+        vamp_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.31}})]
+            },
+            {% endfor %}
+        ];
+        bottom_value_data_array = [
+            {% for r in chartdata_obj %}
+                {
+                    x: '{{r.0}}',
+                    y: [parseInt({{ r.32}})]
+                },
+            {% endfor %}
+        ];
+        top_value_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.33}})]
+            },
+            {% endfor %}
+        ];
+        supplyline_high_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.34}})]
+            },
+            {% endfor %}
+        ];
+        supplyline_low_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.35}})]
+            },
+            {% endfor %}
+        ];
+        demandline_high_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.36}})]
+            },
+            {% endfor %}
+        ];
+        demandline_low_data_array = [
+            {% for r in chartdata_obj %}
+            {
+                x: '{{r.0}}',
+                y: [parseInt({{ r.37}})]
+            },
+            {% endfor %}
+        ];
+
+        // Line Chart -:
+        positive_directional_index_indicator_data_array = [
+            {% for d in  chartdata_obj %}
+                    parseInt({{ d.9 }}),
+            {% endfor %}
+        ];
+        negative_directional_index_indicator_data_array = [
+            {% for d in  chartdata_obj %}
+                parseInt({{ d.10 }}),
+            {% endfor %}
+        ];
+        zero_line_data_array = [
+            {% for d in  chartdata_obj %}
+                    parseInt({{ d.23 }}),
+            {% endfor %}
+        ];
+        twenty_five_line_data_array = [
+            {% for d in  chartdata_obj %}
+                    parseInt({{ d.24 }}),
+            {% endfor %}
+        ];
+        forty_line_data_array = [
+            {% for d in  chartdata_obj %}
+                    parseInt({{ d.25 }}),
+            {% endfor %}
+        ];
+        neg_twenty_five_line_data_array = [
+            {% for d in  chartdata_obj %}
+                    parseInt({{ d.26 }}),
+            {% endfor %}
+        ];
+        neg_forty_line_data_array = [
+            {% for d in chartdata_obj %}
+                
+                parseInt({{ d.27 }}),
+                
+            {% endfor %}
+        ];
+        max_avg_upper_data_array = [
+            {% for d in  chartdata_obj %}
+                    parseInt({{ d.28 }}),
+            {% endfor %}
+        ];
+        min_avg_low_data_array = [
+            {% for d in  chartdata_obj %}
+                    parseInt({{ d.29 }}),
+            {% endfor %}
+        ];
+        adx_indicator_data_array = [
+            {% for d in  chartdata_obj %}
+                        parseInt({{ d.11 }}),
+            {% endfor %}
+        ]
+
+        categories_data_array = [
+            {% for d in  chartdata_obj %}
+                    
+                    moment(moment("{{ d.0 }}",'YYYY-MM-DD')).toDate(),
+            {% endfor %}
+        ]
+
+        // stacked bar chart -:
+        stack_data_array = [
+
+            {% for r in chartdata_obj %}
+                ["{{r.0}}",1,"{{r.16}}",1,"{{r.17}}",1,"{{r.18}}",1,"{{r.19}}",1,"{{r.20}}",1,"{{r.21}}",1,"{{r.22}}"],
+            {% endfor %}
+        ];
+
     </script>
-    <script src="{% static 'js/home.js' %}"></script>
+    <script
+    src="https://www.gstatic.com/charts/loader.js">
+    </script>
+    
     <!-- default candlestick chart -->
     <script>
 
     var options = {
         series: [
-                {
-                    name: 'Candlestick',
-                    type: 'candlestick',
-                    data: [
-                        {% for r in chartdata_obj %}
-                        {
-                            x: '{{r.0}}',
-                            y: [parseInt({{ r.1}}), parseInt({{ r.2}}), parseInt({{r.3 }}), parseInt({{ r.4}})]
-                        },
-                        {% endfor %}
-                    ]
+        {
+            name: 'Candlestick',
+            type: 'candlestick',
+            data: Candlestick_data_array
         },{
             name: 'Short EMA',
-                type: 'line',
-                    data: [
-                        {% for r in chartdata_obj %}
-                            {
-                                x: '{{r.0}}',
-                                y: [parseInt({{ r.6}})]
-                            },
-                        {% endfor %}
-                    ]
+            type: 'line',
+            data:Short_EMA_data_array
         },{
             name: 'Medium EMA',
-                type: 'line',
-                    data: [
-                        {% for r in chartdata_obj %}
-                        {
-                            x: '{{r.0}}',
-                                y: [parseInt({{ r.7}})]
-                                },
-                        {% endfor %}
-                    ]
+            type: 'line',
+            data:Medium_EMA_data_array
         }, 
         {
             name: 'Long EMA',
-                type: 'line',
-                    data: [
-
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.8}})]
-                    },
-                    {% endfor %}
-
-                    ]
+            type: 'line',
+            data: Long_EMA_data_array
         },
         {
             name: 'Support',
-                type: 'line',
-                    data: [
-                        {% for r in chartdata_obj %}
-                        {
-                            x: '{{r.0}}',
-                                y: [parseInt({{ r.12}})]
-                                },
-                        {% endfor %}
-                    ]
+            type: 'line',
+            data: Support_data_array
         },
         {   
             name: 'Resistance',
-                type: 'line',
-                    data: [
-                        {% for r in chartdata_obj %}
-                        {
-                            x: '{{r.0}}',
-                                y: [parseInt({{ r.13}})]
-                                },
-                        {% endfor %}
-                    ]
+            type: 'line',
+            data: Resistance_data_array
         }, 
          {   
             name: 'vamp',
             type: 'line',
-            data: [
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.31}})]
-                    },
-                    {% endfor %}
-                ]
+            data: vamp_data_array
         }, 
         {   
             name: 'bottom_value',
             type: 'line',
-            data: [
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.32}})]
-                    },
-                    {% endfor %}
-            ]
+            data: bottom_value_data_array
         },
         {   
             name: 'top_value',
             type: 'line',
-            data: [
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.33}})]
-                    },
-                    {% endfor %}
-             ]
+            data: top_value_data_array
         },
         {   
             name: 'supplyline_high',
             type: 'line',
-            data: [
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.34}})]
-                    },
-                    {% endfor %}
-            ]
+            data: supplyline_high_data_array
         },
         {   
             name: 'supplyline_low',
             type: 'line',
-            data: [
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.35}})]
-                    },
-                    {% endfor %}
-            ]
+            data: supplyline_low_data_array
         },
         {   
             name: 'demandline_high',
             type: 'line',
-            data: [
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.36}})]
-                    },
-                    {% endfor %}
-            ]
+            data: demandline_high_data_array
         },
         {   
             name: 'demandline_low',
             type: 'line',
-            data: [
-                    {% for r in chartdata_obj %}
-                    {
-                        x: '{{r.0}}',
-                        y: [parseInt({{ r.37}})]
-                    },
-                    {% endfor %}
-            ]
+            data: demandline_low_data_array
         }
         ],
         chart: {
@@ -475,25 +559,6 @@
         legend: {
             show: false,
         },
-        // annotations: {
-        //     xaxis: [
-        //         {
-        //             //x: 'Oct 06 14:00',
-        //             borderColor: '#00E396',
-        //             label: {
-        //                 borderColor: '#00E396',
-        //                 style: {
-        //                     fontSize: '12px',
-        //                     color: '#fff',
-        //                     background: '#00E396'
-        //                 },
-        //                 orientation: 'horizontal',
-        //                 offsetY: 7,
-        //                 //text: 'Annotation Test'
-        //             }
-        //         }
-        //     ]
-        // },
         tooltip: {
             enabled: true,
         },
@@ -537,100 +602,49 @@
         series: [
         {
             name:"positive_directional_index_indicator",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.9 }}),
-            {% endfor %}
-              
-            ]
+            data: positive_directional_index_indicator_data_array
         },
         {
             name:"negative_directional_index_indicator",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.10 }}),
-            {% endfor %}
-              
-            ]
+            data: negative_directional_index_indicator_data_array
         },
         
         {
             name:"zero_line",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.23 }}),
-            {% endfor %}
-              
-            ]
+            data: zero_line_data_array
         },
         {
             name:"twenty_five_line",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.24 }}),
-            {% endfor %}
-              
-            ]
+            data:twenty_five_line_data_array
         },
         {
             name:"forty_line",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.25 }}),
-            {% endfor %}
-              
-            ]
+            data:forty_line_data_array
         },
         {
             name:"neg_twenty_five_line",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.26 }}),
-            {% endfor %}
-              
-            ]
+            data: neg_twenty_five_line_data_array
         },
         {
             name: 'neg_forty_line',
-            data: [
-                
-            {% for r in chartdata_obj %}
-     
-                parseInt({{ r.27 }}),
-                
-            {% endfor %}
-            ]
+            data: neg_forty_line_data_array
         },
         {
             name:"max_avg_upper",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.28 }}),
-            {% endfor %}
-              
-            ]
+            data: max_avg_upper_data_array
         },
         {
             name:"min_avg_low",
-            data: [
-              
-            {% for d in  chartdata_obj %}
-                parseInt({{ d.28 }}),
-            {% endfor %}
-              
-            ]
-        }
+            data: min_avg_low_data_array
+        },
+        {
+            name:"adx_indicator",
+            data: adx_indicator_data_array
+        },
         // 4 - 7
         
       ],
-      colors : ["rgb(77, 167, 75)","rgb(255, 0, 0)","rgb(0, 0, 255)","rgb(255, 0, 0)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(0, 0, 0)","rgb(0, 0, 0)"],
+      colors : ["rgb(77, 167, 75)","rgb(0, 0, 255)","rgb(255, 0, 0)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(0, 0, 0)","rgb(0, 0, 0)","rgb(255, 0, 0)"],
         chart: {
 
             height: 250,
@@ -660,6 +674,8 @@
       stroke: {
         curve: 'smooth',
         width: 2,
+        dashArray: [0,0,0,4,4,4,4,0,0,0]
+
       },
     //   annotations: {
     //   yaxis: [
@@ -681,16 +697,7 @@
       },
       xaxis: {
       // range: range,
-        categories: [
-          
-        {% for d in  chartdata_obj %}
-                
-                moment(moment("{{ d.0 }}",'YYYY-MM-DD')).toDate(),
-        {% endfor %}
-          
-
-          
-        ],
+        categories: categories_data_array,
         labels:{
             rotate:-90,
             formatter: function(val) {
@@ -712,125 +719,53 @@
 
 
     // code for stacked bar charts -:
-    var StackedBarChartsoptions = {
-          series: [{
-          data: [
-             {% for r in chartdata_obj %}
-     
-                    parseInt({{ r.19 }}),
-                
-            {% endfor %}
-          ]
-        }, {
-          data: [
-             {% for r in chartdata_obj %}
-     
-                    parseInt({{ r.18 }}),
-                
-            {% endfor %}
-          ]
-        }, {
-          data: [
-             {% for r in chartdata_obj %}
-     
-                    parseInt({{ r.16 }}),
-                
-            {% endfor %}
-          ]
-        }, {
-          data: [
-             {% for r in chartdata_obj %}
-     
-                parseInt({{ r.17 }}),
-                
-            {% endfor %}
-          ]
-        }, {
-          data: [
-             {% for r in chartdata_obj %}
-     
-                    parseInt({{ r.20 }}),
-                
-            {% endfor %}
-          ]
-        },
-        {
-          data: [
-             {% for r in chartdata_obj %}
-     
-                    parseInt({{ r.21 }}),
-                
-            {% endfor %}
-          ]
-        },
-        {
-          data: [
-             {% for r in chartdata_obj %}
-     
-                    parseInt({{ r.22 }}),
-                
-            {% endfor %}
-          ]
-        }],
-          chart: {
-          type: 'bar',
-          height: 175,
-          stacked: true,
-          stackType: '100%'
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-          },
-        },
-        stroke: {
-          width: 1,
-          colors: ['#fff']
-        },
-        xaxis: {
-      // range: range,
-        categories: [
-          
-        {% for d in  chartdata_obj %}
-                moment(moment("{{ d.0 }}",'YYYY-MM-DD')).toDate(),
-        {% endfor %}
-          
+    google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-          
-        ],
-        labels:{
-            rotate:-90,
-            formatter: function(val) {
-            return dayjs(val).format('MM/DD')
-          },
-          style: {
-             
-             fontSize: '12px',
-               
-         }
-        }
-        
-      },
-        tooltip: {
-          y: {
-            formatter: function (val) {
-              return val + "K"
-            }
-          }
-        },
-        fill: {
-          opacity: 1
-        },
-        legend: {
-          show:false
-        }
+      function drawChart(){
+        let stack = stack_data_array;
+        stack.unshift(['date','trigger_4',{role:"style"},'trigger_3',{role:"style"},'trigger_1',{role:"style"},'trigger_2',{role:"style"},'trigger_5',{role:"style"},'trigger_6',{role:"style"},'trigger_7',{role:"style"}]);
+        // stack.reverse();
+        console.log("stack => ",stack);
+        var data = google.visualization.arrayToDataTable(stack, false);
+
+
+        var options = {
+           legend: 'none',
+           isStacked:true,
+        //    bar: { groupWidth: '80%' },
+           chartArea:{left:40,top:0,width:"100%",height:"60%"},
+           width:'100%', 
+           height:'140',
+           hAxis: {
+               textPosition: 'none',
+                slantedText: true,
+				slantedTextAngle: 90,
+                "textStyle" : {
+                    "fontSize" : 12,
+                    "bold" : true,
+                },
+           },
+           vAxis: {
+           		textPosition: 'none'
+           }
         };
 
-        var StackedBarCharts = new ApexCharts(document.querySelector("#StackedBarCharts"), StackedBarChartsoptions);
-        StackedBarCharts.render();
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
+
+        chart.draw(data, options);
+        const sidebarToggle = document.body.querySelector("#sidebarToggle");
+        sidebarToggle.addEventListener('click', ()=>{
+            setTimeout(() => {
+                var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
+                chart.draw(data, options);
+            }, 1000);
+        })
+      }
 
     </script>
-
+<script src="{% static 'js/home.js' %}"></script>
 
 </body>
 
