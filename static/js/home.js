@@ -58,7 +58,7 @@ let getStrategies = (ele) => {
   
   $.ajax({
     type: "POST",
-    url: "http://127.0.0.1:8000/",
+    url: `${window.location.href}`,
     data: {
       Date: date,
       Ticker: ticker,
@@ -118,7 +118,7 @@ let getTickers = (ele) => {
   $(".invisibticker").css("display", "contents");
   $.ajax({
     type: "POST",
-    url: "http://127.0.0.1:8000/",
+    url: `${window.location.href}`,
     data: {
       Date: date,
       Ticker: ticker,
@@ -162,7 +162,7 @@ let getChartData = (ele) => {
 
   $.ajax({
     type: "POST",
-    url: "http://127.0.0.1:8000/",
+    url: `${window.location.href}`,
     data: {
       Date: date,
       Ticker: ticker,
