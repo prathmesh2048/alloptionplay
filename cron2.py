@@ -3,12 +3,6 @@ import os
 from os import walk, path
 import csv
 import pymysql
-import os
-import sys
-from sqlalchemy import create_engine
-from sqlalchemy.exc import SQLAlchemyError
-import mysql.connector as msql
-from mysql.connector import Error
 
 
 directory = 'files'
