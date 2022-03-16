@@ -8,11 +8,11 @@
   min-height: 100vh;
   margin-left: -15rem;
   transition: margin 0.1s ease-out;
-  width: 40%;
+  width: 20%;
 }
 
 #sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
+  padding: 0.175rem 0.25rem;
   font-size: 1.2rem;
 }
 

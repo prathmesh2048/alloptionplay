@@ -88,7 +88,7 @@ def home(request):
         print("query_chart_data_list",query_chart_data_list)  
         cursor.execute(query_chart_data_list)
         chart_data_list = list(list(x) for x in cursor.fetchall())
-
+        
         return JsonResponse({
             'Ticker_list':Ticker_list,
             'Dates_list':Dates_list,
