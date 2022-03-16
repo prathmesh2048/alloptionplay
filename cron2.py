@@ -5,8 +5,8 @@ import csv
 import pymysql
 
 
-directory = 'files'
-# directory = r'/var/www/vhosts/pakstockanalytics.com/httpdocs/alloptionplays/files'
+# directory = 'files'
+directory = r'/var/www/vhosts/pakstockanalytics.com/httpdocs/alloptionplays/files'
 # db = pymysql.connect(host='127.0.0.1',
 #                      user='root',
 #                      password='titan#12',
