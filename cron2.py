@@ -6,7 +6,6 @@ import pymysql
 
 
 # directory = 'files'
-directory = r'/var/www/vhosts/pakstockanalytics.com/httpdocs/alloptionplays/files'
 # db = pymysql.connect(host='127.0.0.1',
 #                      user='root',
 #                      password='titan#12',
@@ -15,6 +14,8 @@ db = pymysql.connect(host='127.0.0.1',
                      user='alloptionplays',
                      password='alloptionplays@123',
                      database='alloptionplays')
+directory = r'/var/www/vhosts/pakstockanalytics.com/httpdocs/alloptionplays/files'
+
 # funtion to load the csv data into the prescribed database
 def load_csv_to_db(filename):
     cursor = db.cursor()
@@ -37,17 +38,25 @@ def load_csv_to_db(filename):
             # if i==10000:
             #     break
             # i+=1    
-            if(mydata_counter == 100):
+            if(mydata_counter == 2000):
                 qstr = ",".join(my_data)
                 query1 = "INSERT INTO alloptionplay_info (db,country_ticker_pk,ticker,date,open,high,low,adj_close,rownumber,short_ema,medium_ema,long_ema,positive_directional_index_indicator,negative_directional_index_indicator,adx_indicator,suport_line,resistance_line,max_axis,min_axis,trigger_field1,trigger_field2,trigger_field3,trigger_field4,trigger_field5,trigger_field6,trigger_field7,zero_line,twenty_five_line,forty_line,neg_twenty_five_line,neg_forty_line,max_avg_upper,min_avg_low,mov_8day_adj_close,vwap,bottom_value,top_value,supplyline_high,supplyline_low,demandline_high,demandline_low,mov_100day_adj_close,mov_200day_adj_close) VALUES {}"
                 cursor.execute(query1.format(qstr))
                 my_data = []
                 print(query1.format(qstr))
                 mydata_counter = 0
-            
+
+
             my_data.append(f'{tuple(row)}')
             mydata_counter +=1
 
+        if(mydata_counter != 2000 and len(my_data) != 0):
+            qstr = ",".join(my_data)
+            query1 = "INSERT INTO alloptionplay_info (db,country_ticker_pk,ticker,date,open,high,low,adj_close,rownumber,short_ema,medium_ema,long_ema,positive_directional_index_indicator,negative_directional_index_indicator,adx_indicator,suport_line,resistance_line,max_axis,min_axis,trigger_field1,trigger_field2,trigger_field3,trigger_field4,trigger_field5,trigger_field6,trigger_field7,zero_line,twenty_five_line,forty_line,neg_twenty_five_line,neg_forty_line,max_avg_upper,min_avg_low,mov_8day_adj_close,vwap,bottom_value,top_value,supplyline_high,supplyline_low,demandline_high,demandline_low,mov_100day_adj_close,mov_200day_adj_close) VALUES {}"
+            cursor.execute(query1.format(qstr))
+            my_data = []
+            print(query1.format(qstr))
+            mydata_counter = 0
 
     if filename.split('files')[1][1:] == 'Street_94_Lane_0_Strategies_List.csv':
         for row in csv_data:
@@ -55,7 +64,7 @@ def load_csv_to_db(filename):
             cursor.execute(query2.format(tuple(row)))
             print(query2.format(tuple(row)))
 
-    
+     
     db.commit()
     cursor.close()
 
