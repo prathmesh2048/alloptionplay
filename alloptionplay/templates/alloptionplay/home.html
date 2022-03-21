@@ -100,31 +100,8 @@
                 </div>
             </div>
             <div class="p-1 section-2" style="display: flex;">
-                <div class="col-md-4 text-center">
-                    <div class="card">
-                        <div class="card-body Fri">
-                            <!-- <div class="bg-secondary">
-                                <h5 class="card-title text-white p-1">Fri exp</h5>
-                            </div> -->
-                            <table class="table table-hover">
-                                <thead class="table-secondary">
-                                    <tr>
-                                        <th scope="col">Fri Exp</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input friexp" type="checkbox" id="fri_checked">
-                                <label class="form-check-label" for="fri_checked">Fri Exp</label>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-6 text-center">
                     <div class="card">
                         <div class="card-body DB">
                             <table class="table table-hover">
@@ -156,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-6 text-center">
                     <div class="card">
                         <div class="card-body Right-Date">
                             <table class="table table-hover">
@@ -190,56 +167,85 @@
                 </div>
             </div>
             <div class="p-1 section-3">
-                <div class="container">
-                    <div class="card">
-                        <div class="card-body Strategies">
-                            <div>
-                                <table class="table table-hover">
-                                    <thead class="table-secondary">
-                                        <tr>
-                                            <th scope="col">Strategies</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="visibstat" style="display:contents">
-
-                                        <tr>
-                                            <td id="stat_none" onclick="getTickers(this)">
-                                                None
-                                            </td>
-                                        </tr>
-                                        {% for stat in strategies_list %}
-                                        {% if forloop.counter == 1 %}
-                                        <tr>
-                                            <td id="{{stat}}" onclick="getTickers(this)"
-                                                class="table-success stat_success">
-                                                {{stat}}
-                                            </td>
-                                        </tr>
-                                        {% else %}
-                                        <tr>
-                                            <td id="{{stat}}" onclick="getTickers(this)">
-                                                {{stat}}
-                                            </td>
-                                        </tr>
-
-                                        {% endif %}
-                                        {% endfor %}
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <div class="invisibstat" style="display:none">
-                                <div class="d-flex justify-content-center">
-                                    <div class="spinner-border" role="status">
-                                        <span class="visually-hidden"></span>
+                <div class="">
+                    <div class=" " style="display: flex;">
+                        <div class="col-md-6 text-center">
+                            <div class="card">
+                                <div class="card-body Fri">
+                                    <!-- <div class="bg-secondary">
+                                        <h5 class="card-title text-white p-1">Fri exp</h5>
+                                    </div> -->
+                                    <table class="table table-hover">
+                                        <thead class="table-secondary">
+                                            <tr>
+                                                <th scope="col">Fri Exp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input friexp" type="checkbox" id="fri_checked">
+                                        <label class="form-check-label" for="fri_checked">Fri Exp</label>
                                     </div>
+        
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div class="card">
+                                <div class="card-body Strategies">
+                                    <div>
+                                        <table class="table table-hover">
+                                            <thead class="table-secondary">
+                                                <tr>
+                                                    <th scope="col">Strategies</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="visibstat" style="display:contents">
+        
+                                                <tr>
+                                                    <td id="stat_none" onclick="getTickers(this)">
+                                                        None
+                                                    </td>
+                                                </tr>
+                                                {% for stat in strategies_list %}
+                                                {% if forloop.counter == 1 %}
+                                                <tr>
+                                                    <td id="{{stat}}" onclick="getTickers(this)"
+                                                        class="table-success stat_success">
+                                                        {{stat}}
+                                                    </td>
+                                                </tr>
+                                                {% else %}
+                                                <tr>
+                                                    <td id="{{stat}}" onclick="getTickers(this)">
+                                                        {{stat}}
+                                                    </td>
+                                                </tr>
+        
+                                                {% endif %}
+                                                {% endfor %}
+        
+                                            </tbody>
+                                        </table>
+                                    </div>
+        
+        
+                                    <div class="invisibstat" style="display:none">
+                                        <div class="d-flex justify-content-center">
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
@@ -303,7 +309,7 @@
             {% for r in chartdata_obj %}
                 {
                     x: '{{r.0}}',
-                    y: [parseInt({{ r.1}}), parseInt({{ r.2}}), parseInt({{r.3 }}), parseInt({{ r.4}})]
+                    y: [{{ r.1}}, {{ r.2}}, {{r.3 }}, {{ r.4}}]
                 },
             {% endfor %}
         ];
@@ -311,7 +317,7 @@
             {% for r in chartdata_obj %}
                 {
                     x: '{{r.0}}',
-                    y: [parseInt({{ r.6}})]
+                    y: {{ r.6}}
                 },
             {% endfor %}
         ];
@@ -319,7 +325,7 @@
             {% for r in chartdata_obj %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.7}})]
+                y: {{ r.7}}
             },
             {% endfor %}
         ];
@@ -327,7 +333,7 @@
             {% for r in chartdata_obj %}
                 {
                     x: '{{r.0}}',
-                    y: [parseInt({{ r.8}})]
+                    y: {{ r.8}}
                 },
             {% endfor %}
         ];
@@ -335,7 +341,7 @@
             {% for r in chartdata_obj %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.12}})]
+                y: {{ r.12}}
                 },
             {% endfor %}        
         ];
@@ -343,7 +349,7 @@
             {% for r in chartdata_obj %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.13}})]
+                y: {{ r.13}}
                 },
             {% endfor %}
         ];
@@ -351,7 +357,7 @@
             {% for r in chartdata_obj %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.31}})]
+                y: {{ r.31}}
             },
             {% endfor %}
         ];
@@ -361,7 +367,7 @@
             {% if r.32 != '0.0' %}
                 {
                     x: '{{r.0}}',
-                    y: parseInt({{ r.32}})
+                    y: {{ r.32}}
                 },
             {% endif %}
             {% endfor %}
@@ -372,7 +378,7 @@
             {% if r.33 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y: parseInt({{ r.33}})
+                y: {{ r.33}}
             },
             {% endif %}
             {% endfor %}
@@ -383,7 +389,7 @@
             {% if r.34 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y:parseInt({{ r.34}})
+                y:{{ r.34}}
             },
             {% endif%}
             
@@ -394,7 +400,7 @@
             {% if r.35 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y: parseInt({{ r.35}})
+                y: {{ r.35}}
             },
             {% endif%}
             {% endfor %}
@@ -404,7 +410,7 @@
             {% if r.36 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.36}})]
+                y: {{ r.36}}
             },
             {%endif%}
             {% endfor %}
@@ -414,7 +420,7 @@
             {% if r.37 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.37}})]
+                y: {{ r.37}}
             },
             {%endif%}
             {% endfor %}
@@ -423,38 +429,38 @@
         // Line Chart -:
         positive_directional_index_indicator_data_array = [
             {% for d in  chartdata_obj %}
-                    parseInt({{ d.9 }}),
+            {{ d.9 }},
             {% endfor %}
         ];
         negative_directional_index_indicator_data_array = [
             {% for d in  chartdata_obj %}
-                parseInt({{ d.10 }}),
+                {{ d.10 }},
             {% endfor %}
         ];
         zero_line_data_array = [
             {% for d in  chartdata_obj %}
-                    parseInt({{ d.23 }}),
+                    {{ d.23 }},
             {% endfor %}
         ];
         twenty_five_line_data_array = [
             {% for d in  chartdata_obj %}
-                    parseInt({{ d.24 }}),
+                    {{ d.24 }},
             {% endfor %}
         ];
         forty_line_data_array = [
             {% for d in  chartdata_obj %}
-                    parseInt({{ d.25 }}),
+                    {{ d.25 }},
             {% endfor %}
         ];
         neg_twenty_five_line_data_array = [
             {% for d in  chartdata_obj %}
-                    parseInt({{ d.26 }}),
+                    {{ d.26 }},
             {% endfor %}
         ];
         neg_forty_line_data_array = [
             {% for d in chartdata_obj %}
                 
-                parseInt({{ d.27 }}),
+                {{ d.27 }},
                 
             {% endfor %}
         ];
@@ -565,7 +571,7 @@
         }
         ],
         chart: {
-            height: 300,
+            height: 350,
             type: 'line',
             animations: {
                 enabled:false
@@ -595,23 +601,21 @@
         },
         fill:{
             type:'solid',
+            colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
+            opacityFrom:[1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1,0.1,0.1,0.1],
+            // opacityTo:[1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1,0.1,0.1,0.1]
         },
         xaxis: {
-            // type: 'category',
-            //     legend: {
-            //     horizontalAlign: 'right',
-            // },
-
+            tickAmount:categories_data_array.length,
             labels: {
                 rotate: -90,
                     formatter: function(val) {
                         return dayjs(val).format('MM/DD')
                     }
             },
-            // labels: {
-            //     format: 'dd/MM',
-            // },
+           
             type: 'datetime'
+            // type: 'category'
 
         },
         yaxis: {
@@ -626,17 +630,17 @@
             }
         },
         grid: {
-        show: true,      // you can either change hear to disable all grids
-        xaxis: {
-            lines: {
-            show: false  //or just here to disable only x axis grids
-            }
-        },  
-        yaxis: {
-            lines: { 
-            show: false  //or just here to disable only y axis
-            }
-        },   
+            show: true,      // you can either change hear to disable all grids
+            xaxis: {
+                lines: {
+                show: false  //or just here to disable only x axis grids
+                }
+            },  
+            yaxis: {
+                lines: { 
+                show: false  //or just here to disable only y axis
+                }
+            },   
         },
         
         };
@@ -695,13 +699,17 @@
         // 4 - 7
         
       ],
-      colors : ["rgb(77, 167, 75)","rgb(0, 0, 255)","rgb(255, 0, 0)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(10, 10, 10)","rgb(0, 0, 0)","rgb(0, 0, 0)","rgb(255, 0, 0)"],
+      colors : ["rgb(77, 167, 75)","rgb(0, 0, 255)","rgb(255, 0, 0)","rgb(211,211,211)","rgb(211,211,211)","rgb(211,211,211)","rgb(211,211,211)","rgb(0, 0, 0)","rgb(0, 0, 0)","rgb(255, 0, 0)"],
         chart: {
 
             height: 250,
             type: 'line',
             animations: {
                 enabled:false
+            },
+            toolbar: {
+            //   autoSelected: 'zoom',
+            show: false,
             }
         },
         zoom: {
@@ -715,10 +723,6 @@
               ctx.w.config.xaxis.range = undefined
           }
       },
-        toolbar: {
-          autoSelected: 'zoom'
-        }
-      ,
       dataLabels: {
         enabled: false
       },
@@ -728,21 +732,6 @@
         dashArray: [0,0,0,4,4,4,4,0,0,0]
 
       },
-    //   annotations: {
-    //   yaxis: [
-    //       {
-          
-    //         borderColor: '#000000',
-    //         label: {
-    //             style: {
-    //             color: '#000000',
-    //             width:'10px',
-    //             },
-                
-    //         }
-    //       }
-    //   ]
-    //   },
       legend:{
           show:false,
       },

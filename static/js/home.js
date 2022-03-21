@@ -556,13 +556,13 @@ let populateCharts = (data)=>{
         var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
 
         chart.draw(data, options);
-        const sidebarToggle = document.body.querySelector("#sidebarToggle");
-        sidebarToggle.addEventListener('click', ()=>{
-            setTimeout(() => {
-                var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
-                chart.draw(data, options);
-            }, 1000);
-        })
+        // const sidebarToggle = document.body.querySelector("#sidebarToggle");
+        // sidebarToggle.addEventListener('click', ()=>{
+        //     setTimeout(() => {
+        //         var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
+        //         chart.draw(data, options);
+        //     }, 1000);
+        // })
       }
 
   console.log("Short_EMA_data_array after => ",Short_EMA_data_array);

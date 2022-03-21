@@ -18,17 +18,20 @@
 
 .Ticker,
 .Dates,
-.Fri,
 .Right-Date,
-.DB,
-.Strategies {
+.DB
+ {
   overflow-y: auto;
-  height: 23vh;
+  height: 25vh;
+}
+.Strategies,.Fri{
+  overflow-y: auto;
+  height: 40vh;
 }
 
 .section-3 {
   display: flex;
-  width: 80%;
+  width: 100%;
 }
 .list-group-item {
   padding: 0.16rem !important;
@@ -37,7 +40,17 @@
 #page-content-wrapper {
   min-width: 100vw;
 }
-
+tr{
+  font-size: smaller;
+}
+th {
+  background: white;
+  position: sticky;
+  top: 0;
+}
+.card{
+  border-radius: 0%;
+}
 body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   margin-left: 0;
 }
