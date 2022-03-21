@@ -186,7 +186,7 @@ let populateCharts = (data)=>{
       Candlestick_data_array.push( 
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[1]), parseInt(ele[2]), parseInt(ele[3]), parseInt(ele[4])]
+          y: [ele[1], ele[2], ele[3], ele[4]]
         }
       )
     })
@@ -196,7 +196,7 @@ let populateCharts = (data)=>{
       Short_EMA_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[6])]
+          y: [ele[6]]
         }
       )
     })
@@ -207,7 +207,7 @@ let populateCharts = (data)=>{
       Medium_EMA_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[7])]
+          y: [ele[7]]
         }
       )
     })
@@ -218,7 +218,7 @@ let populateCharts = (data)=>{
       Long_EMA_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[8])]
+          y: [ele[8]]
         }
       )
     })
@@ -229,7 +229,7 @@ let populateCharts = (data)=>{
       Support_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[12])]
+          y: [ele[12]]
         }
       )
     })
@@ -240,7 +240,7 @@ let populateCharts = (data)=>{
       Resistance_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[13])]
+          y: [ele[13]]
         }
       )
     })
@@ -251,7 +251,7 @@ let populateCharts = (data)=>{
       vamp_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[31])]
+          y: [ele[31]]
         }
       )
     })
@@ -263,7 +263,7 @@ let populateCharts = (data)=>{
       bottom_value_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[32])]
+          y: [ele[32]]
         }
       )
     })
@@ -275,7 +275,7 @@ let populateCharts = (data)=>{
       top_value_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[33])]
+          y: [ele[33]]
         }
       )
     })
@@ -287,7 +287,7 @@ let populateCharts = (data)=>{
       supplyline_high_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[34])]
+          y: [ele[34]]
         }
       );
     })
@@ -299,7 +299,7 @@ let populateCharts = (data)=>{
       supplyline_low_data_array.push(
           {
             x: `${ele[0]}`,
-            y: [parseInt(ele[35])]
+            y: [ele[35]]
           }
         )
     })
@@ -311,7 +311,7 @@ let populateCharts = (data)=>{
       demandline_high_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[36])]
+          y: [ele[36]]
         }
       )
     })
@@ -323,7 +323,7 @@ let populateCharts = (data)=>{
       demandline_low_data_array.push(
         {
           x: `${ele[0]}`,
-          y: [parseInt(ele[37])]
+          y: [ele[37]]
         }
       )
     })
@@ -334,62 +334,62 @@ let populateCharts = (data)=>{
   positive_directional_index_indicator_data_array = [];
   chartdata.forEach(ele=>{
     positive_directional_index_indicator_data_array.push(
-       parseInt(ele[9])
+       ele[9]
     )
   })
   negative_directional_index_indicator_data_array = [];
   chartdata.forEach(ele=>{
     negative_directional_index_indicator_data_array.push(
-       parseInt(ele[10])
+       ele[10]
     )
   })
   zero_line_data_array = [];
     chartdata.forEach(ele=>{
       zero_line_data_array.push(
-        parseInt(ele[23])
+        ele[23]
       )
     })
 
   twenty_five_line_data_array = [];
   chartdata.forEach(ele=>{
     twenty_five_line_data_array.push(
-       parseInt(ele[24])
+       ele[24]
     )
   })
   forty_line_data_array = [];
   chartdata.forEach(ele=>{
     forty_line_data_array.push(
-       parseInt(ele[25])
+       ele[25]
     )
   })
   neg_twenty_five_line_data_array = [];
   chartdata.forEach(ele=>{
     neg_twenty_five_line_data_array.push(
-       parseInt(ele[26])
+       ele[26]
     )
   })
   neg_forty_line_data_array = [];
   chartdata.forEach(ele=>{
     neg_forty_line_data_array.push(
-       parseInt(ele[27])
+       ele[27]
     )
   })
   max_avg_upper_data_array = [];
   chartdata.forEach(ele=>{
     max_avg_upper_data_array.push(
-       parseInt(ele[28])
+       ele[28]
     )
   })
   min_avg_low_data_array = [];
   chartdata.forEach(ele=>{
     min_avg_low_data_array.push(
-       parseInt(ele[29])
+       ele[29]
     )
   })
   adx_indicator_data_array = [];
   chartdata.forEach(ele=>{
     adx_indicator_data_array.push(
-       parseInt(ele[11])
+       ele[11]
     )
   }) 
   

@@ -467,17 +467,17 @@
         max_avg_upper_data_array = [
             {% for d in  chartdata_obj %}
             
-                    parseInt({{ d.28 }}),
+                    {{ d.28 }},
             {% endfor %}
         ];
         min_avg_low_data_array = [
             {% for d in  chartdata_obj %}
-                    parseInt({{ d.29 }}),
+                    {{ d.29 }},
             {% endfor %}
         ];
         adx_indicator_data_array = [
             {% for d in  chartdata_obj %}
-                        parseInt({{ d.11 }}),
+                        {{ d.11 }},
             {% endfor %}
         ]
 
