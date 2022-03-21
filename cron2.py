@@ -5,16 +5,16 @@ import csv
 import pymysql
 
 
-# directory = 'files'
-# db = pymysql.connect(host='127.0.0.1',
-#                      user='root',
-#                      password='titan#12',
-#                      database='alloptionplays')
+directory = 'files'
 db = pymysql.connect(host='127.0.0.1',
-                     user='alloptionplays',
-                     password='alloptionplays@123',
+                     user='root',
+                     password='titan#12',
                      database='alloptionplays')
-directory = r'/var/www/vhosts/pakstockanalytics.com/httpdocs/alloptionplays/files'
+# db = pymysql.connect(host='127.0.0.1',
+#                      user='alloptionplays',
+#                      password='alloptionplays@123',
+#                      database='alloptionplays')
+# directory = r'/var/www/vhosts/pakstockanalytics.com/httpdocs/alloptionplays/files'
 
 # funtion to load the csv data into the prescribed database
 def load_csv_to_db(filename):

@@ -356,51 +356,67 @@
             {% endfor %}
         ];
         bottom_value_data_array = [
+            
             {% for r in chartdata_obj %}
+            {% if r.32 != '0.0' %}
                 {
                     x: '{{r.0}}',
-                    y: [parseInt({{ r.32}})]
+                    y: parseInt({{ r.32}})
                 },
+            {% endif %}
             {% endfor %}
         ];
         top_value_data_array = [
+            
             {% for r in chartdata_obj %}
+            {% if r.33 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.33}})]
+                y: parseInt({{ r.33}})
             },
+            {% endif %}
             {% endfor %}
         ];
         supplyline_high_data_array = [
             {% for r in chartdata_obj %}
+
+            {% if r.34 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.34}})]
+                y:parseInt({{ r.34}})
             },
+            {% endif%}
+            
             {% endfor %}
         ];
         supplyline_low_data_array = [
             {% for r in chartdata_obj %}
+            {% if r.35 != '0.0' %}
             {
                 x: '{{r.0}}',
-                y: [parseInt({{ r.35}})]
+                y: parseInt({{ r.35}})
             },
+            {% endif%}
             {% endfor %}
         ];
         demandline_high_data_array = [
             {% for r in chartdata_obj %}
+            {% if r.36 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y: [parseInt({{ r.36}})]
             },
+            {%endif%}
             {% endfor %}
         ];
         demandline_low_data_array = [
             {% for r in chartdata_obj %}
+            {% if r.37 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y: [parseInt({{ r.37}})]
             },
+            {%endif%}
             {% endfor %}
         ];
 
@@ -444,6 +460,7 @@
         ];
         max_avg_upper_data_array = [
             {% for d in  chartdata_obj %}
+            
                     parseInt({{ d.28 }}),
             {% endfor %}
         ];
@@ -555,45 +572,72 @@
             }
         },
         stroke: {
-            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2,2,2]
+            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 10,10,10,10]
         },
-        colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(77, 167, 75)','rgb(77, 167, 75)'],
+        colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
             // text: 'CandleStick Chart - Category X-axis',
             title: {
             align: 'left'
         },
 
         legend: {
-            show: false,
+            show: true,
         },
         tooltip: {
             enabled: true,
+            shared:true,
+            fixed: {
+                enabled: false,
+                position: 'topRight',
+                offsetX: 0,
+                offsetY: 0,
+            },
+        },
+        fill:{
+            type:'solid',
         },
         xaxis: {
-            type: 'category',
-                legend: {
-                horizontalAlign: 'right',
-            },
+            // type: 'category',
+            //     legend: {
+            //     horizontalAlign: 'right',
+            // },
 
             labels: {
                 rotate: -90,
                     formatter: function(val) {
                         return dayjs(val).format('MM/DD')
                     }
-            }
+            },
+            // labels: {
+            //     format: 'dd/MM',
+            // },
+            type: 'datetime'
 
         },
         yaxis: {
-            tooltip: {
-                enabled: true
-            },
+            // tooltip: {
+            //     enabled: true
+            // },
             labels: {
 
                 formatter: function(val) {
                     return Math.floor(val)
                 }
             }
-        }
+        },
+        grid: {
+        show: true,      // you can either change hear to disable all grids
+        xaxis: {
+            lines: {
+            show: false  //or just here to disable only x axis grids
+            }
+        },  
+        yaxis: {
+            lines: { 
+            show: false  //or just here to disable only y axis
+            }
+        },   
+        },
         
         };
 
@@ -717,7 +761,20 @@
          }
         }
         
-      }
+      },
+      grid: {
+        show: true,      // you can either change hear to disable all grids
+        xaxis: {
+            lines: {
+            show: false  //or just here to disable only x axis grids
+            }
+        },  
+        yaxis: {
+            lines: { 
+            show: false  //or just here to disable only y axis
+            }
+        },   
+        }
       
     };
 

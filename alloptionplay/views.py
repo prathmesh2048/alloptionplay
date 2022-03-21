@@ -38,7 +38,7 @@ def defaults():
     cursor.execute(sql_command_db_list)
     db_list = list(list(x)[0] for x in cursor.fetchall())
 
-    sql_command_chart_data_list = "SELECT date,open,high,low,adj_close,rownumber,short_ema,medium_ema,long_ema,positive_directional_index_indicator,negative_directional_index_indicator,adx_indicator,suport_line,resistance_line,max_axis,min_axis,trigger_field1,trigger_field2,trigger_field3,trigger_field4,trigger_field5,trigger_field6,trigger_field7,zero_line,twenty_five_line,forty_line,neg_twenty_five_line,neg_forty_line,max_avg_upper,min_avg_low,mov_8day_adj_close,vwap,bottom_value,top_value,supplyline_high,supplyline_low,demandline_high,demandline_low,mov_100day_adj_close,mov_200day_adj_close FROM alloptionplay_info where ticker='{}' order by date asc".format(Ticker_list[1])
+    sql_command_chart_data_list = "SELECT date,open,high,low,adj_close,rownumber,short_ema,medium_ema,long_ema,positive_directional_index_indicator,negative_directional_index_indicator,adx_indicator,suport_line,resistance_line,max_axis,min_axis,trigger_field1,trigger_field2,trigger_field3,trigger_field4,trigger_field5,trigger_field6,trigger_field7,zero_line,twenty_five_line,forty_line,neg_twenty_five_line,neg_forty_line,max_avg_upper,min_avg_low,mov_8day_adj_close,vwap,bottom_value,top_value,supplyline_high,supplyline_low,demandline_high,demandline_low,mov_100day_adj_close,mov_200day_adj_close FROM alloptionplay_info where ticker='{}' order by date asc".format(Ticker_list[0])
     # print(sql_command_chart_data_list)  
     cursor.execute(sql_command_chart_data_list)
     chart_data_list = list(list(x) for x in cursor.fetchall())

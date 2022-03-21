@@ -259,6 +259,7 @@ let populateCharts = (data)=>{
       
     bottom_value_data_array = [];
     chartdata.forEach(ele=>{
+      if(ele[32] != '0.0')
       bottom_value_data_array.push(
         {
           x: `${ele[0]}`,
@@ -270,6 +271,7 @@ let populateCharts = (data)=>{
     
     top_value_data_array = [];
     chartdata.forEach(ele=>{
+      if(ele[33] != '0.0')
       top_value_data_array.push(
         {
           x: `${ele[0]}`,
@@ -281,17 +283,19 @@ let populateCharts = (data)=>{
 
     supplyline_high_data_array = [];
     chartdata.forEach(ele=>{
+      if(ele[34] != '0.0')
       supplyline_high_data_array.push(
         {
           x: `${ele[0]}`,
           y: [parseInt(ele[34])]
         }
-      )
+      );
     })
       
 
     supplyline_low_data_array = [];
     chartdata.forEach(ele=>{
+      if(ele[35] != '0.0')
       supplyline_low_data_array.push(
           {
             x: `${ele[0]}`,
@@ -303,6 +307,7 @@ let populateCharts = (data)=>{
 
     demandline_high_data_array = [];
     chartdata.forEach(ele=>{
+      if(ele[36] != '0.0')
       demandline_high_data_array.push(
         {
           x: `${ele[0]}`,
@@ -314,6 +319,7 @@ let populateCharts = (data)=>{
 
     demandline_low_data_array = [];
     chartdata.forEach(ele=>{
+      if(ele[37] != '0.0')
       demandline_low_data_array.push(
         {
           x: `${ele[0]}`,
