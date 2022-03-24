@@ -24,6 +24,9 @@
   overflow-y: auto;
   height: 25vh;
 }
+.table>:not(caption)>*>*{
+  padding: 0.15em!important;
+}
 .Strategies,.Fri{
   overflow-y: auto;
   height: 40vh;

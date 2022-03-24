@@ -9,6 +9,7 @@ Right = []
 db_list = []
 strategies_list = []
 chart_data_list = []
+d_chart_data_list = []
 
 def defaults():
     global Ticker_list
@@ -18,6 +19,7 @@ def defaults():
     global db_list
     global strategies_list
     global chart_data_list
+    global d_chart_data_list
 
     cursor = connection.cursor()
 
@@ -39,11 +41,18 @@ def defaults():
     db_list = list(list(x)[0] for x in cursor.fetchall())
 
     sql_command_chart_data_list = "SELECT date,open,high,low,adj_close,rownumber,short_ema,medium_ema,long_ema,positive_directional_index_indicator,negative_directional_index_indicator,adx_indicator,suport_line,resistance_line,max_axis,min_axis,trigger_field1,trigger_field2,trigger_field3,trigger_field4,trigger_field5,trigger_field6,trigger_field7,zero_line,twenty_five_line,forty_line,neg_twenty_five_line,neg_forty_line,max_avg_upper,min_avg_low,mov_8day_adj_close,vwap,bottom_value,top_value,supplyline_high,supplyline_low,demandline_high,demandline_low,mov_100day_adj_close,mov_200day_adj_close FROM alloptionplay_info where ticker='{}' order by date asc".format(Ticker_list[0])
+    
     # print(sql_command_chart_data_list)  
     cursor.execute(sql_command_chart_data_list)
     chart_data_list = list(list(x) for x in cursor.fetchall())
     
+    sql_command_chart_topbar_list = "SELECT distinct industry,name,atr,earnings_date,call_time FROM alloptionplay_data where ticker='{}' order by list_date asc".format(Ticker_list[0])
+    cursor.execute(sql_command_chart_topbar_list)
     
+    d_chart_data_list = list(list(x) for x in cursor.fetchall())[0]
+    d_chart_data_list+= [chart_data_list[0][12]]
+    d_chart_data_list+= [chart_data_list[0][13]]
+    print("d_chart_data_list => ",d_chart_data_list)
 
 
 
@@ -57,6 +66,7 @@ def home(request):
     global db_list
     global strategies_list
     global chart_data_list
+    global d_chart_data_list
     cursor = connection.cursor()
     defaults()
     
@@ -85,9 +95,18 @@ def home(request):
 
         
         query_chart_data_list = "SELECT date,open,high,low,adj_close,rownumber,short_ema,medium_ema,long_ema,positive_directional_index_indicator,negative_directional_index_indicator,adx_indicator,suport_line,resistance_line,max_axis,min_axis,trigger_field1,trigger_field2,trigger_field3,trigger_field4,trigger_field5,trigger_field6,trigger_field7,zero_line,twenty_five_line,forty_line,neg_twenty_five_line,neg_forty_line,max_avg_upper,min_avg_low,mov_8day_adj_close,vwap,bottom_value,top_value,supplyline_high,supplyline_low,demandline_high,demandline_low,mov_100day_adj_close,mov_200day_adj_close FROM alloptionplay_info where ticker='{}' order by date asc".format(incomming_ticker)
-        print("query_chart_data_list",query_chart_data_list)  
+        # print("query_chart_data_list",query_chart_data_list)  
         cursor.execute(query_chart_data_list)
         chart_data_list = list(list(x) for x in cursor.fetchall())
+
+
+        sql_command_chart_topbar_list = "SELECT distinct industry,name,atr,earnings_date,call_time FROM alloptionplay_data where ticker='{}' order by list_date asc".format(Ticker_list[0])
+        cursor.execute(sql_command_chart_topbar_list)
+        
+        d_chart_data_list = list(list(x) for x in cursor.fetchall())[0]
+        d_chart_data_list+= [chart_data_list[0][12]]
+        d_chart_data_list+= [chart_data_list[0][13]]
+        
         
         return JsonResponse({
             'Ticker_list':Ticker_list,
@@ -96,9 +115,10 @@ def home(request):
             'db_list':db_list,
             'strategies_list':strategies_list,
             'chartdata_obj':chart_data_list,
+            'd_chart_data_list':d_chart_data_list
 
         })
-    print("chart_data_list = > ",chart_data_list)
+    # print("chart_data_list = > ",chart_data_list)
     context = {
         'Ticker_list':Ticker_list,
         'Dates_list':Dates_list,
@@ -106,6 +126,7 @@ def home(request):
         'db_list':db_list,
         'strategies_list':strategies_list,
         'chartdata_obj':chart_data_list,
+        'd_chart_data_list':d_chart_data_list
     }
     return render(request,template,context)
 

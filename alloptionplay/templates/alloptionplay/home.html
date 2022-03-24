@@ -18,7 +18,7 @@
     <div class="d-flex wrap" id="wrapper">
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light">Selections -:</div>
+            <div class="sidebar-heading border-bottom bg-light"></div>
             <div class="p-1 section-1" style="display: flex;">
                 <div class="col-md-6 text-center ">
 
@@ -100,40 +100,59 @@
                 </div>
             </div>
             <div class="p-1 section-2" style="display: flex;">
-
-                <div class="col-md-6 text-center">
+                <div class="col-md-7 text-center">
                     <div class="card">
-                        <div class="card-body DB">
-                            <table class="table table-hover">
-                                <thead class="table-secondary">
-                                    <tr>
-                                        <th scope="col">DB</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for db in db_list %}
-                                    {% if forloop.counter == 1 %}
-                                    <tr>
-                                        <td id="{{db}}" onclick="getStrategies(this)"
-                                            class="table-success db_success">
-                                            {{db}}
-                                        </td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td id="{{db}}Right">
-                                            {{db}}
-                                        </td>
-                                    </tr>
+                        <div class="card-body Strategies">
+                            <div>
+                                <table class="table table-hover">
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th scope="col">Strategies</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="visibstat" style="display:contents">
 
-                                    {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                                        <tr>
+                                            <td id="stat_none" onclick="getTickers(this)">
+                                                None
+                                            </td>
+                                        </tr>
+                                        {% for stat in strategies_list %}
+                                        {% if forloop.counter == 1 %}
+                                        <tr>
+                                            <td id="{{stat}}" onclick="getTickers(this)"
+                                                class="table-success stat_success">
+                                                {{stat}}
+                                            </td>
+                                        </tr>
+                                        {% else %}
+                                        <tr>
+                                            <td id="{{stat}}" onclick="getTickers(this)">
+                                                {{stat}}
+                                            </td>
+                                        </tr>
+
+                                        {% endif %}
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div class="invisibstat" style="display:none">
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 text-center">
+
+                <div class="col-md-5 text-center">
                     <div class="card">
                         <div class="card-body Right-Date">
                             <table class="table table-hover">
@@ -166,7 +185,7 @@
                     </div>
                 </div>
             </div>
-            <div class="p-1 section-3">
+            <div class="p-1 section-3" style="display: block;">
                 <div class="">
                     <div class=" " style="display: flex;">
                         <div class="col-md-6 text-center">
@@ -185,7 +204,8 @@
                                             
                                         </tbody>
                                     </table>
-                                    <div class="form-check form-switch">
+                                    <!-- form-switch -->
+                                    <div class="form-check ">
                                         <input class="form-check-input friexp" type="checkbox" id="fri_checked">
                                         <label class="form-check-label" for="fri_checked">Fri Exp</label>
                                     </div>
@@ -195,52 +215,33 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <div class="card">
-                                <div class="card-body Strategies">
-                                    <div>
-                                        <table class="table table-hover">
-                                            <thead class="table-secondary">
-                                                <tr>
-                                                    <th scope="col">Strategies</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="visibstat" style="display:contents">
+                                <div class="card-body DB">
+                                    <table class="table table-hover">
+                                        <thead class="table-secondary">
+                                            <tr>
+                                                <th scope="col">DB</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for db in db_list %}
+                                            {% if forloop.counter == 1 %}
+                                            <tr>
+                                                <td id="{{db}}" onclick="getStrategies(this)"
+                                                    class="table-success db_success">
+                                                    {{db}}
+                                                </td>
+                                            </tr>
+                                            {% else %}
+                                            <tr>
+                                                <td id="{{db}}Right">
+                                                    {{db}}
+                                                </td>
+                                            </tr>
         
-                                                <tr>
-                                                    <td id="stat_none" onclick="getTickers(this)">
-                                                        None
-                                                    </td>
-                                                </tr>
-                                                {% for stat in strategies_list %}
-                                                {% if forloop.counter == 1 %}
-                                                <tr>
-                                                    <td id="{{stat}}" onclick="getTickers(this)"
-                                                        class="table-success stat_success">
-                                                        {{stat}}
-                                                    </td>
-                                                </tr>
-                                                {% else %}
-                                                <tr>
-                                                    <td id="{{stat}}" onclick="getTickers(this)">
-                                                        {{stat}}
-                                                    </td>
-                                                </tr>
-        
-                                                {% endif %}
-                                                {% endfor %}
-        
-                                            </tbody>
-                                        </table>
-                                    </div>
-        
-        
-                                    <div class="invisibstat" style="display:none">
-                                        <div class="d-flex justify-content-center">
-                                            <div class="spinner-border" role="status">
-                                                <span class="visually-hidden"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-        
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -253,19 +254,69 @@
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <div class="container-fluid">
+            <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid"> -->
                     <!-- <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> -->
                     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation"><span
                             class="navbar-toggler-icon"></span></button> -->
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     </div>
                 </div>
-            </nav>
+            </nav> -->
             <!-- Page content-->
+            <div class="information">
+                <p>
+                    <p style="font-size: 0.9em;" class="text-center">
+                    Ticker:&nbsp;
+                    Industry : 
+                    {% for d in d_chart_data_list %}
+                        {% if forloop.counter0 == 0 %}
+                            {{d}}
+                        {% endif %}
+                    {% endfor %}
+                    &nbsp;
+                    Name: 
+                    {% for d in d_chart_data_list %}
+                        {% if forloop.counter0 == 1 %}
+                            {{d}}
+                        {% endif %}
+                    {% endfor %} &nbsp;
+                    Resistance Line: 
+                    {% for d in d_chart_data_list %}
+                        {% if forloop.counter0 == 6 %}
+                            {{ d}}  
+                        {% endif %}
+                    {% endfor %}&nbsp;
+                    support Line: 
+                    {% for d in d_chart_data_list %}
+                        {% if forloop.counter0 == 5 %}
+                            {{ d}}  
+                        {% endif %}
+                    {% endfor %}&nbsp;
+                    ATR: 
+                    {% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 2 %}
+                        {{d}}
+                    {% endif %}
+                    {% endfor %} &nbsp;
+                    EPSDate: {% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 3 %}
+                        {{d}}
+                    {% endif %}
+                    {% endfor %} &nbsp;
+                    Time:{% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 4 %}
+                        {{d}}
+                    {% endif %}
+                {% endfor %} &nbsp;&nbsp;
+                    </p>
+            </p>
+
+            
+            </div>
             <div class="container-fluid">
                 <!-- <h1 class="mt-4">Graph Section -:</h1> -->
                 <div id="LineCharts">
@@ -571,7 +622,7 @@
         }
         ],
         chart: {
-            height: 350,
+            height: 500,
             type: 'line',
             animations: {
                 enabled:false
@@ -699,7 +750,7 @@
         // 4 - 7
         
       ],
-      colors : ["rgb(77, 167, 75)","rgb(0, 0, 255)","rgb(255, 0, 0)","rgb(211,211,211)","rgb(211,211,211)","rgb(211,211,211)","rgb(211,211,211)","rgb(0, 0, 0)","rgb(0, 0, 0)","rgb(255, 0, 0)"],
+      colors : ["rgb(77, 167, 75)","rgb(255, 0, 0)","rgb(255, 0, 0)","rgb(211,211,211)","rgb(211,211,211)","rgb(211,211,211)","rgb(211,211,211)","rgb(0, 0, 0)","rgb(0, 0, 0)","rgb(0, 0, 255)"],
         chart: {
 
             height: 250,
@@ -750,6 +801,14 @@
          }
         }
         
+      },
+      yaxis: {
+        labels: {
+          show: true,
+          formatter: function(val){
+              return Math.round(val);
+          }
+        }
       },
       grid: {
         show: true,      // you can either change hear to disable all grids
@@ -805,7 +864,7 @@
         };
 
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
+        // var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
 
         chart.draw(data, options);
         const sidebarToggle = document.body.querySelector("#sidebarToggle");

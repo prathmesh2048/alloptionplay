@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
   }
 });
+
 $("input[type=radio]").click(() => {
   $("#wrapper").scrollTop(0);
 });
@@ -178,9 +179,33 @@ let getChartData = (ele) => {
 
 let populateCharts = (data)=>{
   let chartdata = data['chartdata_obj'];
+  let heading_obj = data['d_chart_data_list'];
+  console.log("data['d_chart_data_list'] => ",data['d_chart_data_list']);
 
-  console.log("Short_EMA_data_array => ",Short_EMA_data_array);
+    document.getElementsByClassName('information')[0].innerHTML = ''
+    document.getElementsByClassName('information')[0].innerHTML += `
+              <p>
+                <p style="font-size: 0.9em;" class="text-center">
 
+                  Ticker:&nbsp;
+                  Industry : ${heading_obj[0]}
+                  &nbsp;
+                  Name: ${heading_obj[1]}
+                  &nbsp;
+                  Resistance Line:${heading_obj[6]}
+                  &nbsp;
+                  support Line: ${heading_obj[5]}
+                  &nbsp;
+                  ATR: ${heading_obj[2]}
+                  &nbsp;
+                  EPSDate: ${heading_obj[3]}
+                  &nbsp;
+                  Time:${heading_obj[4]}
+                  &nbsp;&nbsp;
+
+                </p>
+            </p>
+            `
     Candlestick_data_array = [];
     chartdata.forEach(ele => {
       Candlestick_data_array.push( 
@@ -553,7 +578,7 @@ let populateCharts = (data)=>{
         };
 
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
+        // var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
 
         chart.draw(data, options);
         // const sidebarToggle = document.body.querySelector("#sidebarToggle");
