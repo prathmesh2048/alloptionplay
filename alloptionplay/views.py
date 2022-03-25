@@ -52,6 +52,8 @@ def defaults():
     d_chart_data_list = list(list(x) for x in cursor.fetchall())[0]
     d_chart_data_list+= [chart_data_list[0][12]]
     d_chart_data_list+= [chart_data_list[0][13]]
+    d_chart_data_list+= [Ticker_list[0]]
+    
     print("d_chart_data_list => ",d_chart_data_list)
 
 
@@ -100,12 +102,13 @@ def home(request):
         chart_data_list = list(list(x) for x in cursor.fetchall())
 
 
-        sql_command_chart_topbar_list = "SELECT distinct industry,name,atr,earnings_date,call_time FROM alloptionplay_data where ticker='{}' order by list_date asc".format(Ticker_list[0])
+        sql_command_chart_topbar_list = "SELECT distinct industry,name,atr,earnings_date,call_time FROM alloptionplay_data where ticker='{}' order by list_date asc".format(incomming_ticker)
         cursor.execute(sql_command_chart_topbar_list)
         
         d_chart_data_list = list(list(x) for x in cursor.fetchall())[0]
         d_chart_data_list+= [chart_data_list[0][12]]
         d_chart_data_list+= [chart_data_list[0][13]]
+        d_chart_data_list+= [incomming_ticker]
         
         
         return JsonResponse({

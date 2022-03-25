@@ -19,8 +19,8 @@
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom bg-light"></div>
-            <div class="p-1 section-1" style="display: flex;">
-                <div class="col-md-6 text-center ">
+            <div class="p-1 section-1" style="display: flex; font-size: smaller;">
+                <div class="col-md-4 text-center ">
 
                     <div class="card">
                         <div class="card-body Ticker">
@@ -65,7 +65,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-6 text-center ">
+                <div class="col-md-4 text-center ">
                     <div class="card">
                         <div class="card-body Dates">
                             <table class="table table-hover">
@@ -98,9 +98,41 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body Right-Date">
+                            <table class="table table-hover">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">Right</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for date in Right %}
+                                    {% if forloop.counter == 1 %}
+                                    <tr>
+                                        <td id="{{date}}" onclick="getStrategies(this)"
+                                            class="table-success date_success">
+                                            {{date}}
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td id="{{date}}Right">
+                                            {{date}}
+                                        </td>
+                                    </tr>
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="p-1 section-2" style="display: flex;">
-                <div class="col-md-7 text-center">
+                <div class="col-md-12 text-center">
                     <div class="card">
                         <div class="card-body Strategies">
                             <div>
@@ -151,39 +183,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-5 text-center">
-                    <div class="card">
-                        <div class="card-body Right-Date">
-                            <table class="table table-hover">
-                                <thead class="table-secondary">
-                                    <tr>
-                                        <th scope="col">Right</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for date in Right %}
-                                    {% if forloop.counter == 1 %}
-                                    <tr>
-                                        <td id="{{date}}" onclick="getStrategies(this)"
-                                            class="table-success date_success">
-                                            {{date}}
-                                        </td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td id="{{date}}Right">
-                                            {{date}}
-                                        </td>
-                                    </tr>
-
-                                    {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            
             </div>
             <div class="p-1 section-3" style="display: block;">
                 <div class="">
@@ -270,7 +270,12 @@
             <div class="information">
                 <p>
                     <p style="font-size: 0.9em;" class="text-center">
-                    Ticker:&nbsp;
+                    Ticker:
+                    {% for d in d_chart_data_list %}
+                        {% if forloop.counter0 == 7 %}
+                            {{d}}
+                        {% endif %}
+                    {% endfor %}&nbsp;
                     Industry : 
                     {% for d in d_chart_data_list %}
                         {% if forloop.counter0 == 0 %}
@@ -629,7 +634,7 @@
             }
         },
         stroke: {
-            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 10,10,10,10]
+            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 7,7,7,7]
         },
         colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
             // text: 'CandleStick Chart - Category X-axis',
@@ -640,16 +645,7 @@
         legend: {
             show: true,
         },
-        tooltip: {
-            enabled: true,
-            shared:true,
-            fixed: {
-                enabled: false,
-                position: 'topRight',
-                offsetX: 0,
-                offsetY: 0,
-            },
-        },
+
         fill:{
             type:'solid',
             colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
@@ -664,19 +660,21 @@
                         return dayjs(val).format('MM/DD')
                     }
             },
-           
-            type: 'datetime'
+            type: 'datetime',
+            tooltip: {
+                enabled: false
+            },
             // type: 'category'
 
         },
         yaxis: {
-            // tooltip: {
-            //     enabled: true
-            // },
+            tooltip: {
+                enabled: true
+            },
             labels: {
 
                 formatter: function(val) {
-                    return Math.floor(val)
+                    return Math.round(val)
                 }
             }
         },
@@ -799,7 +797,10 @@
              fontSize: '12px',
                
          }
-        }
+        },
+        tooltip: {
+            enabled: false
+        },
         
       },
       yaxis: {
@@ -808,7 +809,13 @@
           formatter: function(val){
               return Math.round(val);
           }
-        }
+        },
+        
+        tooltip: {
+            enabled: true
+        },
+        
+        
       },
       grid: {
         show: true,      // you can either change hear to disable all grids

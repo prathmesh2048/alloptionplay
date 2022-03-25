@@ -187,7 +187,8 @@ let populateCharts = (data)=>{
               <p>
                 <p style="font-size: 0.9em;" class="text-center">
 
-                  Ticker:&nbsp;
+                  Ticker:${heading_obj[7]}
+                  &nbsp;
                   Industry : ${heading_obj[0]}
                   &nbsp;
                   Name: ${heading_obj[1]}
