@@ -108,18 +108,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for date in Right %}
+                                    {% for date in chartdata_obj %}
                                     {% if forloop.counter == 1 %}
                                     <tr>
-                                        <td id="{{date}}" onclick="getStrategies(this)"
-                                            class="table-success date_success">
-                                            {{date}}
+                                        <td id="{{date.0}}" onclick="RightDateHandler(this,this.id)"
+                                            class="table-success right_date_success">
+                                            {{date.0}}
                                         </td>
                                     </tr>
                                     {% else %}
                                     <tr>
-                                        <td id="{{date}}Right">
-                                            {{date}}
+                                        <td id="{{date.0}}" onclick="RightDateHandler(this,this.id)">
+                                            {{date.0}}
                                         </td>
                                     </tr>
 
@@ -201,15 +201,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            <tr>
+                                                <td id="FriExp">
+                                                    <!-- Fri Exp -->
+                                                    <input class="form-check-input friexp" type="checkbox" id="fri_checked" style="display: none;">
+                                                    <label class="form-check-label" for="fri_checked">Fri Exp</label>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <!-- form-switch -->
-                                    <div class="form-check ">
+                                    <!-- <div class="form-check ">
                                         <input class="form-check-input friexp" type="checkbox" id="fri_checked">
                                         <label class="form-check-label" for="fri_checked">Fri Exp</label>
                                     </div>
-        
+         -->
                                 </div>
                             </div>
                         </div>
@@ -226,7 +232,7 @@
                                             {% for db in db_list %}
                                             {% if forloop.counter == 1 %}
                                             <tr>
-                                                <td id="{{db}}" onclick="getStrategies(this)"
+                                                <td id="{{db}}" onclick=""
                                                     class="table-success db_success">
                                                     {{db}}
                                                 </td>
@@ -441,14 +447,12 @@
         ];
         supplyline_high_data_array = [
             {% for r in chartdata_obj %}
-
             {% if r.34 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y:{{ r.34}}
             },
             {% endif%}
-            
             {% endfor %}
         ];
         supplyline_low_data_array = [
@@ -540,7 +544,8 @@
         categories_data_array = [
             {% for d in  chartdata_obj %}
                     
-                    moment(moment("{{ d.0 }}",'YYYY-MM-DD')).toDate(),
+                    // moment(moment("{{ d.0 }}",'YYYY-MM-DD')).toDate(),
+                    "{{ d.0 }}",
             {% endfor %}
         ]
 
@@ -634,7 +639,7 @@
             }
         },
         stroke: {
-            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 7,7,7,7]
+            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2,2,2]
         },
         colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
             // text: 'CandleStick Chart - Category X-axis',
@@ -653,7 +658,8 @@
             // opacityTo:[1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1,0.1,0.1,0.1]
         },
         xaxis: {
-            tickAmount:categories_data_array.length,
+            // categories: categories_data_array,
+            // tickAmount:  90,
             labels: {
                 rotate: -90,
                     formatter: function(val) {
@@ -661,8 +667,10 @@
                     }
             },
             type: 'datetime',
+            // min: new Date('2021-10-20').getTime(),
             tooltip: {
-                enabled: false
+                // enabled: false
+                enabled: true
             },
             // type: 'category'
 
@@ -675,8 +683,10 @@
 
                 formatter: function(val) {
                     return Math.round(val)
+                    // return val;
                 }
-            }
+            },
+            type: 'category'
         },
         grid: {
             show: true,      // you can either change hear to disable all grids
@@ -772,6 +782,7 @@
               ctx.w.config.xaxis.range = undefined
           }
       },
+    //   type: 'category',
       dataLabels: {
         enabled: false
       },
@@ -787,11 +798,13 @@
       xaxis: {
       // range: range,
         categories: categories_data_array,
+        // tickAmount:10,
         labels:{
             rotate:-90,
             formatter: function(val) {
             return dayjs(val).format('MM/DD')
           },
+        //   type: 'datetime',
           style: {
              
              fontSize: '12px',

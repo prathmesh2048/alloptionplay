@@ -28,11 +28,11 @@ def defaults():
     Dates_list = list(list(x)[0] for x in cursor.fetchall())
     Right = Dates_list
     
-    sql_command_strategies_list = "SELECT DISTINCT strategy FROM alloptionplay_data where list_date='{}'".format(Dates_list[0])
+    sql_command_strategies_list = "SELECT DISTINCT strategy FROM alloptionplay_data where list_date='{}' ORDER BY strategy".format(Dates_list[0])
     cursor.execute(sql_command_strategies_list)
     strategies_list = list(list(x)[0] for x in cursor.fetchall())
 
-    sql_command_Ticker_list = "SELECT DISTINCT ticker FROM alloptionplay_data where list_date='{}' and strategy='{}'".format(Dates_list[0],strategies_list[0])
+    sql_command_Ticker_list = "SELECT DISTINCT ticker FROM alloptionplay_data where list_date='{}' and strategy='{}' ORDER BY ticker".format(Dates_list[0],strategies_list[0])
     cursor.execute(sql_command_Ticker_list)
     Ticker_list = list(list(x)[0] for x in cursor.fetchall())
 
@@ -81,15 +81,17 @@ def home(request):
         incomming_fri = str(request.POST['Fri'])
         incomming_ticker = str(request.POST['Ticker'])
 
-        query_stat_ = "SELECT DISTINCT strategy FROM alloptionplay_data where list_date='{}' and expires_friday='{}'".format(incomming_date,incomming_fri)
+        query_stat_ = "SELECT DISTINCT strategy FROM alloptionplay_data where list_date='{}' and expires_friday='{}' ORDER BY strategy".format(incomming_date,incomming_fri)
         cursor.execute(query_stat_)
         strategies_list = list(list(x)[0] for x in cursor.fetchall())
         print("query_stat_",query_stat_)
 
-        query_ticker_ = "SELECT DISTINCT ticker FROM alloptionplay_data where list_date='{}' and expires_friday='{}'".format(incomming_date,incomming_fri)
+        query_ticker_ = "SELECT DISTINCT ticker FROM alloptionplay_data where list_date='{}' and expires_friday='{}' ORDER BY ticker".format(incomming_date,incomming_fri)
         if(incomming_stat != 'stat_none'):
-            query_ticker2 = " and strategy='{}'".format(incomming_stat)
+            query_ticker2 = " and strategy='{}' ORDER BY ticker".format(incomming_stat)
+            query_ticker_ = query_ticker_.replace("ORDER BY ticker","",1)
             query_ticker_ += query_ticker2
+            print(" query_ticker_ => ",query_ticker_)
 
         print("query_ticker_",query_ticker_)
         cursor.execute(query_ticker_)

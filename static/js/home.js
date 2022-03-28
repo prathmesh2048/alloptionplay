@@ -36,9 +36,29 @@ console.log(stat);
 let fri = $(".friexp").is(":checked") === false ? "" : "Y";
 console.log("fri", fri);
 
-console.log("positive_directional_index_indicator_data_array => ",positive_directional_index_indicator_data_array)
+// console.log("positive_directional_index_indicator_data_array => ",positive_directional_index_indicator_data_array)
+
+let FirEXPSupport = ()=>{
+
+  $(".Fri_EXP").click(()=>{
+    
+    $("#fri_checked").click();
+    if(!$(".Fri_EXP").hasClass("table-success")){
+      $(".Fri_EXP").addClass("Fri_EXP table-success");
+    }
+    
+  })  
+}
 
 $(".friexp").change(() => {
+
+  if($(".friexp").is(":checked")){
+    $("#FriExp").addClass("table-success");
+  }
+  if(!$(".friexp").is(":checked")){
+    $("#FriExp").removeAttr("class");
+  }
+
   fri = $(".friexp").is(":checked") === false ? "" : "Y";
   getTickers("NA");
   getStrategies("NA");
@@ -152,7 +172,7 @@ let populateTicker = (data) => {
   $(".visibticker").css("display", "contents");
   $(".invisibticker").css("display", "none");
 };
-
+// console.log("category_data array => ",categories_data_array)
 let getChartData = (ele) => {
 
   if(ele != "NA"){
@@ -176,6 +196,7 @@ let getChartData = (ele) => {
     },
   });
 };
+
 
 let populateCharts = (data)=>{
   let chartdata = data['chartdata_obj'];
@@ -553,7 +574,7 @@ let populateCharts = (data)=>{
         let stack = stack_data_array;
         stack.unshift(['date','trigger_4',{role:"style"},'trigger_3',{role:"style"},'trigger_1',{role:"style"},'trigger_2',{role:"style"},'trigger_5',{role:"style"},'trigger_6',{role:"style"},'trigger_7',{role:"style"}]);
         // stack.reverse();
-        console.log("stack => ",stack);
+        // console.log("stack => ",stack);
         var data = google.visualization.arrayToDataTable(stack, false);
 
 
@@ -594,4 +615,138 @@ let populateCharts = (data)=>{
   console.log("Short_EMA_data_array after => ",Short_EMA_data_array);
 
 };
+
+
+
+let rightHelper = (ele,id)=>{
+  let a  = new Date(`${id}`);
+  let b  = new Date(`${ele['x']}`);
+  return b<=a;
+}
+let rightHelperForLineChart = (ele,id)=>{
+  let a  = new Date(`${id}`);
+  let b  = new Date(`${ele}`);
+  return b<=a;
+} 
+let RightDateHandler = (element,id)=>{
+
+  $(".right_date_success").removeAttr("class");
+  $(element).addClass("right_date_success table-success"); 
+
   
+
+    chart1.updateSeries([
+      {
+          name: 'Candlestick',
+          type: 'candlestick',
+          data: Candlestick_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },{
+          name: 'Short EMA',
+          type: 'line',
+          data:Short_EMA_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },{
+          name: 'Medium EMA',
+          type: 'line',
+          data:Medium_EMA_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      }, 
+      {
+          name: 'Long EMA',
+          type: 'line',
+          data: Long_EMA_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },
+      {
+          name: 'Support',
+          type: 'line',
+          data: Support_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },
+      {   
+          name: 'Resistance',
+          type: 'line',
+          data: Resistance_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      }, 
+      {   
+          name: 'vamp',
+          type: 'line',
+          data: vamp_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      }, 
+      {   
+          name: 'bottom_value',
+          type: 'line',
+          data: bottom_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },
+      {   
+          name: 'top_value',
+          type: 'line',
+          data: top_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },
+      {   
+          name: 'supplyline_high',
+          type: 'line',
+          data: supplyline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },
+      {   
+          name: 'supplyline_low',
+          type: 'line',
+          data: supplyline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },
+      {   
+          name: 'demandline_high',
+          type: 'line',
+          data: demandline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      },
+      {   
+          name: 'demandline_low',
+          type: 'line',
+          data: demandline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      }
+  ])
+
+  let leni = categories_data_array.filter((ele)=>{return rightHelperForLineChart(ele,id)}).length
+  // categories_data_array =   categories_data_array.filter((ele)=>{return rightHelperForLineChart(ele,id)})
+  linechart.updateSeries([
+    {
+        name:"positive_directional_index_indicator",
+        data: positive_directional_index_indicator_data_array.slice(0,leni)
+    },
+    {
+        name:"negative_directional_index_indicator",
+        data: negative_directional_index_indicator_data_array.slice(0,leni)
+    },
+    
+    {
+        name:"zero_line",
+        data: zero_line_data_array.slice(0,leni)
+    },
+    {
+        name:"twenty_five_line",
+        data:twenty_five_line_data_array.slice(0,leni)
+    },
+    {
+        name:"forty_line",
+        data:forty_line_data_array.slice(0,leni)
+    },
+    {
+        name:"neg_twenty_five_line",
+        data: neg_twenty_five_line_data_array.slice(0,leni)
+    },
+    {
+        name: 'neg_forty_line',
+        data: neg_forty_line_data_array.slice(0,leni)
+    },
+    {
+        name:"max_avg_upper",
+        data: max_avg_upper_data_array.slice(0,leni)
+    },
+    {
+        name:"min_avg_low",
+        data: min_avg_low_data_array.slice(0,leni)
+    },
+    {
+        name:"adx_indicator",
+        data: adx_indicator_data_array.slice(0,leni)
+    },
+    // 4 - 7
+    
+  ])
+
+}
