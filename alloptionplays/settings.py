@@ -82,15 +82,15 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'alloptionplays',
-        # 'NAME': 'Alloption_Admin_db',
+        # 'NAME': 'alloptionplays',
+        'NAME': 'Alloption_Admin_db',
         
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
         'PASSWORD': 'titan#12',
-        # 'USER': 'Alloption_user',
-        # 'PASSWORD': 'd1zr15B~',
+        'USER': 'Alloption_user',
+        'PASSWORD': 'd1zr15B~',
         # 'USER': 'alloptionplays',
         # 'PASSWORD': 'alloptionplays@123',
     }
