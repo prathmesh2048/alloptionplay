@@ -32,8 +32,8 @@ def load_csv_to_db(filename):
     if filename.split('files')[1][1:] == 'Street_90_Internal_Web_page_USA.csv':
         cursor.execute("TRUNCATE TABLE alloptionplay_info")
 
-    # if filename.split('files')[1][1:] == 'Street_94_Lane_0_Strategies_List.csv':
-    #     cursor.execute("TRUNCATE TABLE alloptionplay_data")    
+    if filename.split('files')[1][1:] == 'Street_94_Lane_0_Strategies_List.csv':
+        cursor.execute("TRUNCATE TABLE alloptionplay_data")    
 
 
     if filename.split('files')[1][1:] == 'Street_90_Internal_Web_page_USA.csv':
@@ -64,11 +64,11 @@ def load_csv_to_db(filename):
             print(query1.format(qstr))
             mydata_counter = 0
 
-    # if filename.split('files')[1][1:] == 'Street_94_Lane_0_Strategies_List.csv':
-    #     for row in csv_data:
-    #         query2 = "INSERT INTO alloptionplay_data (db,country_ticker_pk,strategy,ticker,expires_friday,list_date,beta,floatshort,earnings_date,call_time,atr,name,sector,industry) VALUES {}"
-    #         cursor.execute(query2.format(tuple(row[:-1])))
-    #         print(query2.format(tuple(row)))
+    if filename.split('files')[1][1:] == 'Street_94_Lane_0_Strategies_List.csv':
+        for row in csv_data:
+            query2 = "INSERT INTO alloptionplay_data (db,country_ticker_pk,strategy,ticker,expires_friday,list_date,beta,floatshort,earnings_date,call_time,atr,name,sector,industry) VALUES {}"
+            cursor.execute(query2.format(tuple(row[:-1])))
+            print(query2.format(tuple(row)))
 
      
     db.commit()
