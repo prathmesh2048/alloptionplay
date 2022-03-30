@@ -489,36 +489,36 @@ let populateCharts = (data)=>{
             type: 'line',
             data: vamp_data_array
         }, 
-        {   
-            name: 'bottom_value',
-            type: 'line',
-            data: bottom_value_data_array
-        },
-        {   
-            name: 'top_value',
-            type: 'line',
-            data: top_value_data_array
-        },
-        {   
-            name: 'supplyline_high',
-            type: 'line',
-            data: supplyline_high_data_array
-        },
-        {   
-            name: 'supplyline_low',
-            type: 'line',
-            data: supplyline_low_data_array
-        },
-        {   
-            name: 'demandline_high',
-            type: 'line',
-            data: demandline_high_data_array
-        },
-        {   
-            name: 'demandline_low',
-            type: 'line',
-            data: demandline_low_data_array
-        }
+        // {   
+        //     name: 'bottom_value',
+        //     type: 'line',
+        //     data: bottom_value_data_array
+        // },
+        // {   
+        //     name: 'top_value',
+        //     type: 'line',
+        //     data: top_value_data_array
+        // },
+        // {   
+        //     name: 'supplyline_high',
+        //     type: 'line',
+        //     data: supplyline_high_data_array
+        // },
+        // {   
+        //     name: 'supplyline_low',
+        //     type: 'line',
+        //     data: supplyline_low_data_array
+        // },
+        // {   
+        //     name: 'demandline_high',
+        //     type: 'line',
+        //     data: demandline_high_data_array
+        // },
+        // {   
+        //     name: 'demandline_low',
+        //     type: 'line',
+        //     data: demandline_low_data_array
+        // }
   ])
   
   linechart.updateSeries([
@@ -669,36 +669,36 @@ let RightDateHandler = (element,id)=>{
           type: 'line',
           data: vamp_data_array.filter((ele)=>{return rightHelper(ele,id)})
       }, 
-      {   
-          name: 'bottom_value',
-          type: 'line',
-          data: bottom_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },
-      {   
-          name: 'top_value',
-          type: 'line',
-          data: top_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },
-      {   
-          name: 'supplyline_high',
-          type: 'line',
-          data: supplyline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },
-      {   
-          name: 'supplyline_low',
-          type: 'line',
-          data: supplyline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },
-      {   
-          name: 'demandline_high',
-          type: 'line',
-          data: demandline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },
-      {   
-          name: 'demandline_low',
-          type: 'line',
-          data: demandline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      }
+      // {   
+      //     name: 'bottom_value',
+      //     type: 'line',
+      //     data: bottom_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      // },
+      // {   
+      //     name: 'top_value',
+      //     type: 'line',
+      //     data: top_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      // },
+      // {   
+      //     name: 'supplyline_high',
+      //     type: 'line',
+      //     data: supplyline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      // },
+      // {   
+      //     name: 'supplyline_low',
+      //     type: 'line',
+      //     data: supplyline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      // },
+      // {   
+      //     name: 'demandline_high',
+      //     type: 'line',
+      //     data: demandline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      // },
+      // {   
+      //     name: 'demandline_low',
+      //     type: 'line',
+      //     data: demandline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
+      // }
   ])
 
   let leni = categories_data_array.filter((ele)=>{return rightHelperForLineChart(ele,id)}).length
