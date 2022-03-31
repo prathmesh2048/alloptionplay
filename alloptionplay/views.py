@@ -84,14 +84,14 @@ def home(request):
         query_stat_ = "SELECT DISTINCT strategy FROM alloptionplay_data where list_date='{}' and expires_friday='{}' ORDER BY strategy".format(incomming_date,incomming_fri)
         cursor.execute(query_stat_)
         strategies_list = list(list(x)[0] for x in cursor.fetchall())
-        print("query_stat_",query_stat_)
+        # print("query_stat_",query_stat_)
 
         query_ticker_ = "SELECT DISTINCT ticker FROM alloptionplay_data where list_date='{}' and expires_friday='{}' ORDER BY ticker".format(incomming_date,incomming_fri)
         if(incomming_stat != 'stat_none'):
             query_ticker2 = " and strategy='{}' ORDER BY ticker".format(incomming_stat)
             query_ticker_ = query_ticker_.replace("ORDER BY ticker","",1)
             query_ticker_ += query_ticker2
-            print(" query_ticker_ => ",query_ticker_)
+            # print(" query_ticker_ => ",query_ticker_)
 
         print("query_ticker_",query_ticker_)
         cursor.execute(query_ticker_)
