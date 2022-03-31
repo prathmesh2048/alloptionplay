@@ -133,7 +133,7 @@ let getTickers = (ele) => {
     stat = ele.id;
 
     $(".stat_success").removeAttr("class");
-    $(ele).addClass("ticker_success table-success");
+    $(ele).addClass("table-success stat_success");
   }
   $(".visibticker").css("display", "none");
   $(".invisibticker").css("display", "contents");
