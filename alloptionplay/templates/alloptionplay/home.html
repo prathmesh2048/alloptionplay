@@ -338,16 +338,10 @@
                     
                 </div>
 
-                <div class="containeri">
-                    <div id="CandleStickChart">
+                <div id="CandleStickChart">
 
-                    </div>
-                    <div id="CandleStickChart2">
-    
-                    </div>
-                </div> 
+                </div>
 
-                
             </div>
         </div>
     </div>
@@ -432,51 +426,63 @@
         bottom_value_data_array = [
             
             {% for r in chartdata_obj %}
+            {% if r.32 != '0.0' %}
                 {
                     x: '{{r.0}}',
                     y: {{ r.32}}
                 },
+            {% endif %}
             {% endfor %}
         ];
         top_value_data_array = [
             
             {% for r in chartdata_obj %}
+            {% if r.33 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y: {{ r.33}}
             },
+            {% endif %}
             {% endfor %}
         ];
         supplyline_high_data_array = [
             {% for r in chartdata_obj %}
+            {% if r.34 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y:{{ r.34}}
             },
+            {% endif%}
             {% endfor %}
         ];
         supplyline_low_data_array = [
             {% for r in chartdata_obj %}
+            {% if r.35 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y: {{ r.35}}
             },
+            {% endif%}
             {% endfor %}
         ];
         demandline_high_data_array = [
             {% for r in chartdata_obj %}
+            {% if r.36 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y: {{ r.36}}
             },
+            {%endif%}
             {% endfor %}
         ];
         demandline_low_data_array = [
             {% for r in chartdata_obj %}
+            {% if r.37 != '0.0' %}
             {
                 x: '{{r.0}}',
                 y: {{ r.37}}
             },
+            {%endif%}
             {% endfor %}
         ];
 
@@ -594,36 +600,36 @@
             type: 'line',
             data: vamp_data_array
         }, 
-        // {   
-        //     name: 'bottom_value',
-        //     type: 'line',
-        //     data: bottom_value_data_array
-        // },
-        // {   
-        //     name: 'top_value',
-        //     type: 'line',
-        //     data: top_value_data_array
-        // },
-        // {   
-        //     name: 'supplyline_high',
-        //     type: 'line',
-        //     data: supplyline_high_data_array
-        // },
-        // {   
-        //     name: 'supplyline_low',
-        //     type: 'line',
-        //     data: supplyline_low_data_array
-        // },
-        // {   
-        //     name: 'demandline_high',
-        //     type: 'line',
-        //     data: demandline_high_data_array
-        // },
-        // {   
-        //     name: 'demandline_low',
-        //     type: 'line',
-        //     data: demandline_low_data_array
-        // }
+        {   
+            name: 'bottom_value',
+            type: 'line',
+            data: bottom_value_data_array
+        },
+        {   
+            name: 'top_value',
+            type: 'line',
+            data: top_value_data_array
+        },
+        {   
+            name: 'supplyline_high',
+            type: 'line',
+            data: supplyline_high_data_array
+        },
+        {   
+            name: 'supplyline_low',
+            type: 'line',
+            data: supplyline_low_data_array
+        },
+        {   
+            name: 'demandline_high',
+            type: 'line',
+            data: demandline_high_data_array
+        },
+        {   
+            name: 'demandline_low',
+            type: 'line',
+            data: demandline_low_data_array
+        }
         ],
         chart: {
             height: 465,
@@ -653,29 +659,29 @@
         },
         xaxis: {
             datetimeUTC: false,
-            categories: categories_data_array,
+            // categories: categories_data_array,
+        
             // tickAmount:  90,
             labels: {
+                show:false,
                 rotate: -90,
                     formatter: function(val) {
                         return dayjs(val).format('MM/DD')
                     }
             },
-            // type: 'datetime',
-            type: 'category',
+            type: 'datetime',
             // min: new Date('2021-10-20').getTime(),
             tooltip: {
                 // enabled: false
                 enabled: true
             },
+            // type: 'category'
+
         },
         yaxis: {
             tooltip: {
                 enabled: true
             },
-            // tickAmount: 6,
-            // min: 100,
-            // max: 130,
             labels: {
 
                 formatter: function(val) {
@@ -700,11 +706,10 @@
         },
         
         };
-        
-      
+
         var chart1 = new ApexCharts(document.querySelector("#CandleStickChart"), options);
         chart1.render();
-
+        prev_candle.push(chart1)
 
 
 
