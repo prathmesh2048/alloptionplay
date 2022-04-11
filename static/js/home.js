@@ -172,7 +172,7 @@ let populateTicker = (data) => {
   $(".visibticker").css("display", "contents");
   $(".invisibticker").css("display", "none");
 };
-// console.log("category_data array => ",categories_data_array)
+console.log("Candlestick_data_array array1 => ",Candlestick_data_array1)
 let getChartData = (ele) => {
 
   if(ele != "NA"){
@@ -611,8 +611,6 @@ let populateCharts = (data)=>{
         //     }, 1000);
         // })
       }
-
-  console.log("Short_EMA_data_array after => ",Short_EMA_data_array);
 
 };
 

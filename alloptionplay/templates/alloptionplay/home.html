@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" />
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
@@ -342,9 +343,20 @@
 
                 </div>
 
+                <div id="Candlestick1">
+
+                </div>
+
             </div>
         </div>
     </div>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-stock.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-annotations.min.js"></script>
+
+
 
 
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
@@ -375,6 +387,11 @@
                 },
             {% endfor %}
         ];
+        Candlestick_data_array1 = [
+            {% for r in chartdata_obj %}
+                ['{{r.0}}',{{ r.1}}, {{ r.2}}, {{r.3 }}, {{ r.4}}],
+            {% endfor %}
+        ]
         Short_EMA_data_array = [
             {% for r in chartdata_obj %}
                 {
@@ -899,6 +916,121 @@
             }, 1000);
         })
       }
+
+      anychart.onDocumentReady(function () {
+
+        // set the data
+        table = anychart.data.table();
+        table.addData(Candlestick_data_array1);
+        var chart = anychart.stock();
+        var plot = chart.plot();
+
+        var Candle = plot.candlestick(
+            table.mapAs({
+            open: 1,
+            high: 2,
+            low: 3,
+            close: 4
+            })
+        );
+        Candle.name('Candle');
+        Candle.legendItem().iconType('rising-falling');
+        Candle.tooltip().format(function () {
+            return tooltipFormatter(this, true);
+        });
+            
+        var annotation = plot.annotations();
+        // supplyline_high -:
+        annotation.line({
+            // X - part of the first anchor
+            xAnchor: supplyline_high_data_array[0]['x'],
+            // Y - part of the first anchor
+            valueAnchor: supplyline_high_data_array[0]['y'],
+            // X - part of the second anchor
+            secondXAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['x'],
+            // Y - part of the second anchor
+            secondValueAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['y'],
+            stroke: '2 #6E9C4E'
+            // disable interaction with Annotation
+        }).allowEdit(false);
+
+        // supplyline_low -:
+        annotation.line({
+            // X - part of the first anchor
+            xAnchor: supplyline_low_data_array[0]['x'],
+            // Y - part of the first anchor
+            valueAnchor: supplyline_low_data_array[0]['y'],
+            // X - part of the second anchor
+            secondXAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['x'],
+            // Y - part of the second anchor
+            secondValueAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['y'],
+            stroke: '2 #6E9C4E'
+            // disable interaction with Annotation
+        }).allowEdit(false);
+
+        // demandline_high -:
+        annotation.line({
+            // X - part of the first anchor
+            xAnchor: demandline_high_data_array[0]['x'],
+            // Y - part of the first anchor
+            valueAnchor: demandline_high_data_array[0]['y'],
+            // X - part of the second anchor
+            secondXAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['x'],
+            // Y - part of the second anchor
+            secondValueAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['y'],
+            stroke: '2 #6E9C4E'
+            // disable interaction with Annotation
+        }).allowEdit(false);
+
+        // demandline_low -:
+        annotation.line({
+            // X - part of the first anchor
+            xAnchor: demandline_low_data_array[0]['x'],
+            // Y - part of the first anchor
+            valueAnchor: demandline_low_data_array[0]['y'],
+            // X - part of the second anchor
+            secondXAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['x'],
+            // Y - part of the second anchor
+            secondValueAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['y'],
+            stroke: '2 #6E9C4E'
+            // disable interaction with Annotation
+        }).allowEdit(false);
+
+        // bottom_value -:
+        annotation.line({
+            // X - part of the first anchor
+            xAnchor: bottom_value_data_array[0]['x'],
+            // Y - part of the first anchor
+            valueAnchor: bottom_value_data_array[0]['y'],
+            // X - part of the second anchor
+            secondXAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['x'],
+            // Y - part of the second anchor
+            secondValueAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['y'],
+            stroke: '2 #6E9C4E'
+            // disable interaction with Annotation
+        }).allowEdit(false);
+
+        
+        // top_value_data -:
+        annotation.line({
+            // X - part of the first anchor
+            xAnchor: top_value_data_array[0]['x'],
+            // Y - part of the first anchor
+            valueAnchor: top_value_data_array[0]['y'],
+            // X - part of the second anchor
+            secondXAnchor: top_value_data_array[top_value_data_array.length-1]['x'],
+            // Y - part of the second anchor
+            secondValueAnchor: top_value_data_array[top_value_data_array.length-1]['y'],
+            stroke: '2 #6E9C4E'
+            // disable interaction with Annotation
+        }).allowEdit(false);
+
+
+        chart.container('Candlestick1');
+        // initiate chart drawing
+        chart.draw();
+    })
+      
 
     </script>
 <script src="{% static 'js/home.js' %}"></script>
