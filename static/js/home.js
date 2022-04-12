@@ -576,75 +576,75 @@ let populateCharts = (data)=>{
     Resistance_data_array_table.addData(Resistance_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
 
     var chart = anychart.stock();
+                chart.plot().legend(false)
+                var plot = chart.plot();
 
-    chart.plot().legend(false)
-    
-    var Short_EMA = plot.line(
-        Short_EMA_data_array_table.mapAs({ 
-            // x: 0, 
-            value: 1
-        })
-    );
+                var Short_EMA = plot.line(
+                    Short_EMA_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
 
-    Short_EMA.name('Short_EMA').stroke('1.5 rgb(128, 0, 255)');
-    var Medium_EMA = plot.line(
-        Medium_EMA_data_array_table.mapAs({ 
-            // x: 0, 
-            value: 1
-        })
-    );
-    Medium_EMA.name('Medium_EMA').stroke('1.5 rgb(249, 124, 0)');
+                Short_EMA.name('Short_EMA').stroke('1.5 rgb(128, 0, 255)');
+                var Medium_EMA = plot.line(
+                    Medium_EMA_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Medium_EMA.name('Medium_EMA').stroke('1.5 rgb(249, 124, 0)');
 
-    var Long_EMA = plot.line(
-        Long_EMA_data_array_table.mapAs({ 
-            // x: 0, 
-            value: 1
-        })
-    );
-    Long_EMA.name('Long_EMA').stroke('1.5 rgb(255, 0, 255)');
+                var Long_EMA = plot.line(
+                    Long_EMA_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Long_EMA.name('Long_EMA').stroke('1.5 rgb(255, 0, 255)');
 
 
 
-    var vamp = plot.line(
-        vamp_data_array_table.mapAs({ 
-            // x: 0, 
-            value: 1
-        })
-    );
-    vamp.name('vamp').stroke('1.5 rgb(0, 255, 255)');
+                var vamp = plot.line(
+                    vamp_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                vamp.name('vamp').stroke('1.5 rgb(0, 255, 255)');
 
-    var Support = plot.line(
-        Support_data_array_table.mapAs({ 
-            // x: 0, 
-            value: 1
-        })
-    );
-    Support.name('Support').stroke('1.5 rgb(192, 192, 192)');
+                var Support = plot.line(
+                    Support_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Support.name('Support').stroke('1.5 rgb(192, 192, 192)');
 
-    var Resistance = plot.line(
-        Resistance_data_array_table.mapAs({ 
-            // x: 0, 
-            value: 1
-        })
-    );
-    Resistance.name('Resistance').stroke('1.5 rgb(192, 192, 192)');
+                var Resistance = plot.line(
+                    Resistance_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Resistance.name('Resistance').stroke('1.5 rgb(192, 192, 192)');
 
-    var Candle = plot.candlestick(
-        table.mapAs({
-            open: 1,
-            high: 2,
-            low: 3,
-            close: 4
-        })
-    );
-    Candle.name('Candle');
-    Candle.legendItem().iconType('rising-falling');
+                var Candle = plot.candlestick(
+                    table.mapAs({
+                        open: 1,
+                        high: 2,
+                        low: 3,
+                        close: 4
+                    })
+                );
+                Candle.name('Candle');
+                Candle.legendItem().iconType('rising-falling');
 
                 Candle.fallingFill("rgb(255, 0, 0)");
                 Candle.fallingStroke("rgb(255, 0, 0)");
                 Candle.risingFill("rgb(77, 167, 75)");
                 Candle.risingStroke("rgb(77, 167, 75)");
-                    
+
                 var annotation = plot.annotations();
                 // supplyline_high -:
                 annotation.line({
@@ -656,9 +656,9 @@ let populateCharts = (data)=>{
                     secondXAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['y'],
-                    stroke: '4 rgb(255, 0, 0)'
+                    // stroke: '4 rgb(255, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(255, 0, 0)', opacity:0.6});
 
                 // supplyline_low -:
                 annotation.line({
@@ -670,9 +670,9 @@ let populateCharts = (data)=>{
                     secondXAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['y'],
-                    stroke: '4 rgb(255, 0, 0)'
+                    // stroke: '4 rgb(255, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(255, 0, 0)', opacity:0.6});
 
                 // demandline_high -:
                 annotation.line({
@@ -684,9 +684,9 @@ let populateCharts = (data)=>{
                     secondXAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['y'],
-                    stroke: '4 rgb(77, 167, 75)'
+                    // stroke: '4 rgb(77, 167, 75)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(77, 167, 75)', opacity:0.6});
 
                 // demandline_low -:
                 annotation.line({
@@ -698,9 +698,9 @@ let populateCharts = (data)=>{
                     secondXAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['y'],
-                    stroke: '4 rgb(77, 167, 75)'
+                    // stroke: '4 rgb(77, 167, 75)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(77, 167, 75)', opacity:0.6});
 
                 // bottom_value -:
                 annotation.line({
@@ -712,9 +712,9 @@ let populateCharts = (data)=>{
                     secondXAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['y'],
-                    stroke: '1.5 rgb(0, 0, 0)'
+                    // stroke: '1.5 rgb(0, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'1.5', color:'rgb(0, 0, 0)', opacity:1});
 
 
                 // top_value_data -:
@@ -727,9 +727,9 @@ let populateCharts = (data)=>{
                     secondXAnchor: top_value_data_array[top_value_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: top_value_data_array[top_value_data_array.length-1]['y'],
-                    stroke: '1.5 rgb(0, 0, 0)'
+                    // stroke: '1.5 rgb(0, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'1.5', color:'rgb(0, 0, 0)', opacity:1});
 
                 document.getElementById('Candlestick1').innerHTML = ""
                 chart.container('Candlestick1');
