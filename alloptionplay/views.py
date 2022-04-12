@@ -27,7 +27,7 @@ def defaults():
     sql_command_Dates_list = "SELECT DISTINCT date FROM alloptionplay_info order by date desc"
     cursor.execute(sql_command_Dates_list)
     Dates_list = list(list(x)[0] for x in cursor.fetchall())
-    Right = Dates_list[::-1]
+    Right = Dates_list
     
     sql_command_strategies_list = "SELECT DISTINCT strategy FROM alloptionplay_data where list_date='{}' ORDER BY strategy".format(Dates_list[0])
     cursor.execute(sql_command_strategies_list)
