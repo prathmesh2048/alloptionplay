@@ -57,7 +57,7 @@ def defaults():
     
     print("d_chart_data_list => ",d_chart_data_list)
 
-    sql_command_Fri_Exp_list = "select distinct expires_friday from alloptionplays.alloptionplay_data"
+    sql_command_Fri_Exp_list = "select distinct expires_friday from alloptionplay_data"
     cursor.execute(sql_command_Fri_Exp_list)
     Fri_Exp_list = list(list(x)[0] for x in cursor.fetchall())
     print(Fri_Exp_list)
