@@ -133,7 +133,7 @@
                 </div>
             </div>
             <div class="p-1 section-2" style="display: flex;">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 ">
                     <div class="card">
                         <div class="card-body Strategies">
                             <div>
@@ -189,7 +189,7 @@
             <div class="p-1 section-3" style="display: block;">
                 <div class="">
                     <div class=" " style="display: flex;">
-                        <div class="col-md-6 text-center">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body Fri">
                                     <!-- <div class="bg-secondary">
@@ -202,18 +202,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <td id="blankFrie" onclick="handleFri(this)" class="table-success frie_success">
+                                                    BLANK
+                                                </td>
+                                            </tr>
                                                 {% for frie in Fri_Exp_list %}
-                                                {% if frie == "" %}
-                                                <tr>
-                                                    <td id="{{frie}}" onclick="handleFri(this)">
-                                                        BLANK
-                                                    </td>
-                                                </tr>  
-                                                {% endif %}
+                                               
                                                 {% if forloop.counter == 1 %}
                                                 <tr>
-                                                    <td id="{{frie}}" onclick="handleFri(this)"
-                                                        class="table-success frie_success">
+                                                    <td id="{{frie}}" onclick="handleFri(this)">
                                                         {{frie}}
                                                     </td>
                                                 </tr>
@@ -293,57 +291,56 @@
             </nav> -->
             <!-- Page content-->
             <div class="information">
-                <p>
-                    <p style="font-size: 0.9em;" class="text-center">
-                    Ticker:
-                    {% for d in d_chart_data_list %}
-                        {% if forloop.counter0 == 7 %}
-                            {{d}}
-                        {% endif %}
-                    {% endfor %}&nbsp;
-                    Industry : 
-                    {% for d in d_chart_data_list %}
-                        {% if forloop.counter0 == 0 %}
-                            {{d}}
-                        {% endif %}
-                    {% endfor %}
-                    &nbsp;
-                    Name: 
-                    {% for d in d_chart_data_list %}
-                        {% if forloop.counter0 == 1 %}
-                            {{d}}
-                        {% endif %}
-                    {% endfor %} &nbsp;
-                    Resistance Line: 
-                    {% for d in d_chart_data_list %}
-                        {% if forloop.counter0 == 6 %}
-                            {{ d}}  
-                        {% endif %}
-                    {% endfor %}&nbsp;
-                    support Line: 
-                    {% for d in d_chart_data_list %}
-                        {% if forloop.counter0 == 5 %}
-                            {{ d}}  
-                        {% endif %}
-                    {% endfor %}&nbsp;
-                    ATR: 
-                    {% for d in d_chart_data_list %}
-                    {% if forloop.counter0 == 2 %}
+            
+                <div style="font-size: 0.9em;" class="text-center mt-1">
+                Ticker:&nbsp;
+                {% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 7 %}
                         {{d}}
                     {% endif %}
-                    {% endfor %} &nbsp;
-                    EPSDate: {% for d in d_chart_data_list %}
-                    {% if forloop.counter0 == 3 %}
+                {% endfor %}&nbsp;
+                Industry : 
+                {% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 0 %}
                         {{d}}
                     {% endif %}
-                    {% endfor %} &nbsp;
-                    Time:{% for d in d_chart_data_list %}
-                    {% if forloop.counter0 == 4 %}
+                {% endfor %}
+                &nbsp;
+                Name&nbsp; :
+                {% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 1 %}
                         {{d}}
                     {% endif %}
-                {% endfor %} &nbsp;&nbsp;
-                    </p>
-            </p>
+                {% endfor %} &nbsp;
+                Resistance Line&nbsp; :
+                {% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 6 %}
+                        {{ d}}  
+                    {% endif %}
+                {% endfor %}&nbsp;
+                support Line&nbsp; :
+                {% for d in d_chart_data_list %}
+                    {% if forloop.counter0 == 5 %}
+                        {{ d}}  
+                    {% endif %}
+                {% endfor %}&nbsp;
+                ATR &nbsp; :
+                {% for d in d_chart_data_list %}
+                {% if forloop.counter0 == 2 %}
+                    {{d}}
+                {% endif %}
+                {% endfor %} &nbsp;
+                EPSDate&nbsp; : {% for d in d_chart_data_list %}
+                {% if forloop.counter0 == 3 %}
+                    {{d}}
+                {% endif %}
+                {% endfor %} &nbsp;
+                Time&nbsp; :{% for d in d_chart_data_list %}
+                {% if forloop.counter0 == 4 %}
+                    {{d}}
+                {% endif %}
+            {% endfor %} &nbsp;&nbsp;
+                </div>
 
             
             </div>
@@ -356,10 +353,10 @@
                 <div id="StackedBarCharts">
                     
                 </div>
-
+<!-- 
                 <div id="CandleStickChart">
 
-                </div>
+                </div> -->
 
                 <div id="Candlestick1">
 
@@ -969,6 +966,7 @@
 
 
                 var chart = anychart.stock();
+                chart.plot().legend(false)
                 var plot = chart.plot();
 
                 var Short_EMA = plot.line(
@@ -1048,9 +1046,9 @@
                     secondXAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['y'],
-                    stroke: '4 rgb(255, 0, 0)'
+                    // stroke: '4 rgb(255, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(255, 0, 0)', opacity:0.6});
 
                 // supplyline_low -:
                 annotation.line({
@@ -1062,9 +1060,9 @@
                     secondXAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['y'],
-                    stroke: '4 rgb(255, 0, 0)'
+                    // stroke: '4 rgb(255, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(255, 0, 0)', opacity:0.6});
 
                 // demandline_high -:
                 annotation.line({
@@ -1076,9 +1074,9 @@
                     secondXAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['y'],
-                    stroke: '4 rgb(77, 167, 75)'
+                    // stroke: '4 rgb(77, 167, 75)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(77, 167, 75)', opacity:0.6});
 
                 // demandline_low -:
                 annotation.line({
@@ -1090,9 +1088,9 @@
                     secondXAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['y'],
-                    stroke: '4 rgb(77, 167, 75)'
+                    // stroke: '4 rgb(77, 167, 75)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'4', color:'rgb(77, 167, 75)', opacity:0.6});
 
                 // bottom_value -:
                 annotation.line({
@@ -1104,9 +1102,9 @@
                     secondXAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['y'],
-                    stroke: '1.5 rgb(0, 0, 0)'
+                    // stroke: '1.5 rgb(0, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'1.5', color:'rgb(0, 0, 0)', opacity:1});
 
 
                 // top_value_data -:
@@ -1119,9 +1117,9 @@
                     secondXAnchor: top_value_data_array[top_value_data_array.length-1]['x'],
                     // Y - part of the second anchor
                     secondValueAnchor: top_value_data_array[top_value_data_array.length-1]['y'],
-                    stroke: '1.5 rgb(0, 0, 0)'
+                    // stroke: '1.5 rgb(0, 0, 0)'
                     // disable interaction with Annotation
-                }).allowEdit(false);
+                }).allowEdit(false).stroke({thickness:'1.5', color:'rgb(0, 0, 0)', opacity:1});
 
 
                 chart.container('Candlestick1');

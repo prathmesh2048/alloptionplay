@@ -44,7 +44,12 @@ let frie = $(".frie_success").attr("id");
 let handleFri = (ele)=>{
   $(".frie_success").removeAttr("class");
   $(ele).addClass("frie_success table-success");
-  frie = ele.id;
+  if(ele.id == 'blankFrie'){
+    frie = ""
+  }else{
+    frie = ele.id;
+  }
+  
   console.log("frie is now => ",ele.id)
   getStrategies("NA");
   getTickers("NA");
@@ -571,8 +576,9 @@ let populateCharts = (data)=>{
     Resistance_data_array_table.addData(Resistance_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
 
     var chart = anychart.stock();
-    var plot = chart.plot();
 
+    chart.plot().legend(false)
+    
     var Short_EMA = plot.line(
         Short_EMA_data_array_table.mapAs({ 
             // x: 0, 
