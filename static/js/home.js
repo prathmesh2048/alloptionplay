@@ -36,33 +36,20 @@ console.log(stat);
 let fri = $(".friexp").is(":checked") === false ? "" : "Y";
 console.log("fri", fri);
 
+let frie = $(".frie_success").attr("id");
+
+
 // console.log("positive_directional_index_indicator_data_array => ",positive_directional_index_indicator_data_array)
 
-let FirEXPSupport = ()=>{
-
-  $(".Fri_EXP").click(()=>{
-    
-    $("#fri_checked").click();
-    if(!$(".Fri_EXP").hasClass("table-success")){
-      $(".Fri_EXP").addClass("Fri_EXP table-success");
-    }
-    
-  })  
+let handleFri = (ele)=>{
+  $(".frie_success").removeAttr("class");
+  $(ele).addClass("frie_success table-success");
+  frie = ele.id;
+  console.log("frie is now => ",ele.id)
+  getStrategies("NA");
+  getTickers("NA");
 }
 
-$(".friexp").change(() => {
-
-  if($(".friexp").is(":checked")){
-    $("#FriExp").addClass("table-success");
-  }
-  if(!$(".friexp").is(":checked")){
-    $("#FriExp").removeAttr("class");
-  }
-
-  fri = $(".friexp").is(":checked") === false ? "" : "Y";
-  getTickers("NA");
-  getStrategies("NA");
-});
 
 // when click on Date buttons this function will run -:
 let getStrategies = (ele) => {
@@ -84,7 +71,7 @@ let getStrategies = (ele) => {
       Date: date,
       Ticker: ticker,
       Stat: stat,
-      Fri: fri,
+      Fri: frie,
       csrfmiddlewaretoken: csrftoken,
     },
     success: function (data) {
@@ -144,7 +131,7 @@ let getTickers = (ele) => {
       Date: date,
       Ticker: ticker,
       Stat: stat,
-      Fri: fri,
+      Fri: frie,
       csrfmiddlewaretoken: csrftoken,
     },
     success: function (data) {
@@ -237,6 +224,14 @@ let populateCharts = (data)=>{
         }
       )
     })
+
+    Candlestick_data_array1 = [];
+    chartdata.forEach(ele => {
+      Candlestick_data_array1.push( 
+        [ele[0],ele[1], ele[2], ele[3], ele[4]]
+      )
+    })
+    
 
     Short_EMA_data_array = [];
     chartdata.forEach(ele=>{
@@ -455,71 +450,71 @@ let populateCharts = (data)=>{
   })
       
 
-  chart1.updateSeries([
-        {
-            name: 'Candlestick',
-            type: 'candlestick',
-            data: Candlestick_data_array
-        },{
-            name: 'Short EMA',
-            type: 'line',
-            data:Short_EMA_data_array
-        },{
-            name: 'Medium EMA',
-            type: 'line',
-            data:Medium_EMA_data_array
-        }, 
-        {
-            name: 'Long EMA',
-            type: 'line',
-            data: Long_EMA_data_array
-        },
-        {
-            name: 'Support',
-            type: 'line',
-            data: Support_data_array
-        },
-        {   
-            name: 'Resistance',
-            type: 'line',
-            data: Resistance_data_array
-        }, 
-         {   
-            name: 'vamp',
-            type: 'line',
-            data: vamp_data_array
-        }, 
-        // {   
-        //     name: 'bottom_value',
-        //     type: 'line',
-        //     data: bottom_value_data_array
-        // },
-        // {   
-        //     name: 'top_value',
-        //     type: 'line',
-        //     data: top_value_data_array
-        // },
-        // {   
-        //     name: 'supplyline_high',
-        //     type: 'line',
-        //     data: supplyline_high_data_array
-        // },
-        // {   
-        //     name: 'supplyline_low',
-        //     type: 'line',
-        //     data: supplyline_low_data_array
-        // },
-        // {   
-        //     name: 'demandline_high',
-        //     type: 'line',
-        //     data: demandline_high_data_array
-        // },
-        // {   
-        //     name: 'demandline_low',
-        //     type: 'line',
-        //     data: demandline_low_data_array
-        // }
-  ])
+  // chart1.updateSeries([
+  //       {
+  //           name: 'Candlestick',
+  //           type: 'candlestick',
+  //           data: Candlestick_data_array
+  //       },{
+  //           name: 'Short EMA',
+  //           type: 'line',
+  //           data:Short_EMA_data_array
+  //       },{
+  //           name: 'Medium EMA',
+  //           type: 'line',
+  //           data:Medium_EMA_data_array
+  //       }, 
+  //       {
+  //           name: 'Long EMA',
+  //           type: 'line',
+  //           data: Long_EMA_data_array
+  //       },
+  //       {
+  //           name: 'Support',
+  //           type: 'line',
+  //           data: Support_data_array
+  //       },
+  //       {   
+  //           name: 'Resistance',
+  //           type: 'line',
+  //           data: Resistance_data_array
+  //       }, 
+  //        {   
+  //           name: 'vamp',
+  //           type: 'line',
+  //           data: vamp_data_array
+  //       }, 
+  //       {   
+  //           name: 'bottom_value',
+  //           type: 'line',
+  //           data: bottom_value_data_array
+  //       },
+  //       {   
+  //           name: 'top_value',
+  //           type: 'line',
+  //           data: top_value_data_array
+  //       },
+  //       {   
+  //           name: 'supplyline_high',
+  //           type: 'line',
+  //           data: supplyline_high_data_array
+  //       },
+  //       {   
+  //           name: 'supplyline_low',
+  //           type: 'line',
+  //           data: supplyline_low_data_array
+  //       },
+  //       {   
+  //           name: 'demandline_high',
+  //           type: 'line',
+  //           data: demandline_high_data_array
+  //       },
+  //       {   
+  //           name: 'demandline_low',
+  //           type: 'line',
+  //           data: demandline_low_data_array
+  //       }
+  // ])
   
   linechart.updateSeries([
     {
@@ -566,7 +561,176 @@ let populateCharts = (data)=>{
     // 4 - 7
     
   ])
+  anychart.onDocumentReady(function () {
+    table.addData(Candlestick_data_array1);
+    Short_EMA_data_array_table.addData(Short_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+    Medium_EMA_data_array_table.addData(Medium_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+    Long_EMA_data_array_table.addData(Long_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+    vamp_data_array_table.addData(vamp_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+    Support_data_array_table.addData(Support_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+    Resistance_data_array_table.addData(Resistance_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
 
+    var chart = anychart.stock();
+    var plot = chart.plot();
+
+    var Short_EMA = plot.line(
+        Short_EMA_data_array_table.mapAs({ 
+            // x: 0, 
+            value: 1
+        })
+    );
+
+    Short_EMA.name('Short_EMA').stroke('1.5 rgb(128, 0, 255)');
+    var Medium_EMA = plot.line(
+        Medium_EMA_data_array_table.mapAs({ 
+            // x: 0, 
+            value: 1
+        })
+    );
+    Medium_EMA.name('Medium_EMA').stroke('1.5 rgb(249, 124, 0)');
+
+    var Long_EMA = plot.line(
+        Long_EMA_data_array_table.mapAs({ 
+            // x: 0, 
+            value: 1
+        })
+    );
+    Long_EMA.name('Long_EMA').stroke('1.5 rgb(255, 0, 255)');
+
+
+
+    var vamp = plot.line(
+        vamp_data_array_table.mapAs({ 
+            // x: 0, 
+            value: 1
+        })
+    );
+    vamp.name('vamp').stroke('1.5 rgb(0, 255, 255)');
+
+    var Support = plot.line(
+        Support_data_array_table.mapAs({ 
+            // x: 0, 
+            value: 1
+        })
+    );
+    Support.name('Support').stroke('1.5 rgb(192, 192, 192)');
+
+    var Resistance = plot.line(
+        Resistance_data_array_table.mapAs({ 
+            // x: 0, 
+            value: 1
+        })
+    );
+    Resistance.name('Resistance').stroke('1.5 rgb(192, 192, 192)');
+
+    var Candle = plot.candlestick(
+        table.mapAs({
+            open: 1,
+            high: 2,
+            low: 3,
+            close: 4
+        })
+    );
+    Candle.name('Candle');
+    Candle.legendItem().iconType('rising-falling');
+
+                Candle.fallingFill("rgb(255, 0, 0)");
+                Candle.fallingStroke("rgb(255, 0, 0)");
+                Candle.risingFill("rgb(77, 167, 75)");
+                Candle.risingStroke("rgb(77, 167, 75)");
+                    
+                var annotation = plot.annotations();
+                // supplyline_high -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: supplyline_high_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: supplyline_high_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['y'],
+                    stroke: '4 rgb(255, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // supplyline_low -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: supplyline_low_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: supplyline_low_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['y'],
+                    stroke: '4 rgb(255, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // demandline_high -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: demandline_high_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: demandline_high_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['y'],
+                    stroke: '4 rgb(77, 167, 75)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // demandline_low -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: demandline_low_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: demandline_low_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['y'],
+                    stroke: '4 rgb(77, 167, 75)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // bottom_value -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: bottom_value_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: bottom_value_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['y'],
+                    stroke: '1.5 rgb(0, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+
+                // top_value_data -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: top_value_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: top_value_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: top_value_data_array[top_value_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: top_value_data_array[top_value_data_array.length-1]['y'],
+                    stroke: '1.5 rgb(0, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                document.getElementById('Candlestick1').innerHTML = ""
+                chart.container('Candlestick1');
+                // initiate chart drawing
+                chart.draw();
+  })
+  
   google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -602,7 +766,7 @@ let populateCharts = (data)=>{
 
         // var chart = new google.visualization.ColumnChart(document.getElementById('StackedBarCharts'));
 
-        chart.draw(data, options);
+        // chart.draw(data, options);
         // const sidebarToggle = document.body.querySelector("#sidebarToggle");
         // sidebarToggle.addEventListener('click', ()=>{
         //     setTimeout(() => {
@@ -611,7 +775,6 @@ let populateCharts = (data)=>{
         //     }, 1000);
         // })
       }
-
 };
 
 
@@ -630,74 +793,6 @@ let RightDateHandler = (element,id)=>{
 
   $(".right_date_success").removeAttr("class");
   $(element).addClass("right_date_success table-success"); 
-
-  
-
-    chart1.updateSeries([
-      {
-          name: 'Candlestick',
-          type: 'candlestick',
-          data: Candlestick_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },{
-          name: 'Short EMA',
-          type: 'line',
-          data:Short_EMA_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },{
-          name: 'Medium EMA',
-          type: 'line',
-          data:Medium_EMA_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      }, 
-      {
-          name: 'Long EMA',
-          type: 'line',
-          data: Long_EMA_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },
-      {
-          name: 'Support',
-          type: 'line',
-          data: Support_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      },
-      {   
-          name: 'Resistance',
-          type: 'line',
-          data: Resistance_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      }, 
-      {   
-          name: 'vamp',
-          type: 'line',
-          data: vamp_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      }, 
-      // {   
-      //     name: 'bottom_value',
-      //     type: 'line',
-      //     data: bottom_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      // },
-      // {   
-      //     name: 'top_value',
-      //     type: 'line',
-      //     data: top_value_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      // },
-      // {   
-      //     name: 'supplyline_high',
-      //     type: 'line',
-      //     data: supplyline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      // },
-      // {   
-      //     name: 'supplyline_low',
-      //     type: 'line',
-      //     data: supplyline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      // },
-      // {   
-      //     name: 'demandline_high',
-      //     type: 'line',
-      //     data: demandline_high_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      // },
-      // {   
-      //     name: 'demandline_low',
-      //     type: 'line',
-      //     data: demandline_low_data_array.filter((ele)=>{return rightHelper(ele,id)})
-      // }
-  ])
 
   let leni = categories_data_array.filter((ele)=>{return rightHelperForLineChart(ele,id)}).length
   // categories_data_array =   categories_data_array.filter((ele)=>{return rightHelperForLineChart(ele,id)})
@@ -743,7 +838,6 @@ let RightDateHandler = (element,id)=>{
         name:"adx_indicator",
         data: adx_indicator_data_array.slice(0,leni)
     },
-    // 4 - 7
     
   ])
 

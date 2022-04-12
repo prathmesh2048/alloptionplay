@@ -202,13 +202,31 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td id="FriExp">
-                                                    <!-- Fri Exp -->
-                                                    <input class="form-check-input friexp" type="checkbox" id="fri_checked" style="display: none;">
-                                                    <label class="form-check-label" for="fri_checked">Fri Exp</label>
-                                                </td>
-                                            </tr>
+                                                {% for frie in Fri_Exp_list %}
+                                                {% if frie == "" %}
+                                                <tr>
+                                                    <td id="{{frie}}" onclick="handleFri(this)">
+                                                        BLANK
+                                                    </td>
+                                                </tr>  
+                                                {% endif %}
+                                                {% if forloop.counter == 1 %}
+                                                <tr>
+                                                    <td id="{{frie}}" onclick="handleFri(this)"
+                                                        class="table-success frie_success">
+                                                        {{frie}}
+                                                    </td>
+                                                </tr>
+                                                {% else %}
+                                                <tr>
+                                                    <td id="{{frie}}" onclick="handleFri(this)">
+                                                        {{frie}}
+                                                    </td>
+                                                </tr>
+
+                                                {% endif %}
+                                                {% endfor %}
+                                            
                                         </tbody>
                                     </table>
                                     <!-- form-switch -->
@@ -216,7 +234,7 @@
                                         <input class="form-check-input friexp" type="checkbox" id="fri_checked">
                                         <label class="form-check-label" for="fri_checked">Fri Exp</label>
                                     </div>
-         -->
+                                    -->
                                 </div>
                             </div>
                         </div>
@@ -582,151 +600,151 @@
     <!-- default candlestick chart -->
     <script>
 
-    var options = {
-        series: [
-        {
-            name: 'Candlestick',
-            type: 'candlestick',
-            data: Candlestick_data_array
-        },{
-            name: 'Short EMA',
-            type: 'line',
-            data:Short_EMA_data_array
-        },{
-            name: 'Medium EMA',
-            type: 'line',
-            data:Medium_EMA_data_array
-        }, 
-        {
-            name: 'Long EMA',
-            type: 'line',
-            data: Long_EMA_data_array
-        },
-        {
-            name: 'Support',
-            type: 'line',
-            data: Support_data_array
-        },
-        {   
-            name: 'Resistance',
-            type: 'line',
-            data: Resistance_data_array
-        }, 
-         {   
-            name: 'vamp',
-            type: 'line',
-            data: vamp_data_array
-        }, 
-        {   
-            name: 'bottom_value',
-            type: 'line',
-            data: bottom_value_data_array
-        },
-        {   
-            name: 'top_value',
-            type: 'line',
-            data: top_value_data_array
-        },
-        {   
-            name: 'supplyline_high',
-            type: 'line',
-            data: supplyline_high_data_array
-        },
-        {   
-            name: 'supplyline_low',
-            type: 'line',
-            data: supplyline_low_data_array
-        },
-        {   
-            name: 'demandline_high',
-            type: 'line',
-            data: demandline_high_data_array
-        },
-        {   
-            name: 'demandline_low',
-            type: 'line',
-            data: demandline_low_data_array
-        }
-        ],
-        chart: {
-            height: 465,
-            type: 'line',
-            animations: {
-                enabled:false
-            }
-        },
-        stroke: {
-            width: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2,2,2]
-        },
-        colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
-            // text: 'CandleStick Chart - Category X-axis',
-            title: {
-            align: 'left'
-        },
+    // var options = {
+    //     series: [
+    //     {
+    //         name: 'Candlestick',
+    //         type: 'candlestick',
+    //         data: Candlestick_data_array
+    //     },{
+    //         name: 'Short EMA',
+    //         type: 'line',
+    //         data:Short_EMA_data_array
+    //     },{
+    //         name: 'Medium EMA',
+    //         type: 'line',
+    //         data:Medium_EMA_data_array
+    //     }, 
+    //     {
+    //         name: 'Long EMA',
+    //         type: 'line',
+    //         data: Long_EMA_data_array
+    //     },
+    //     {
+    //         name: 'Support',
+    //         type: 'line',
+    //         data: Support_data_array
+    //     },
+    //     {   
+    //         name: 'Resistance',
+    //         type: 'line',
+    //         data: Resistance_data_array
+    //     }, 
+    //      {   
+    //         name: 'vamp',
+    //         type: 'line',
+    //         data: vamp_data_array
+    //     }, 
+    //     {   
+    //         name: 'bottom_value',
+    //         type: 'line',
+    //         data: bottom_value_data_array
+    //     },
+    //     {   
+    //         name: 'top_value',
+    //         type: 'line',
+    //         data: top_value_data_array
+    //     },
+    //     {   
+    //         name: 'supplyline_high',
+    //         type: 'line',
+    //         data: supplyline_high_data_array
+    //     },
+    //     {   
+    //         name: 'supplyline_low',
+    //         type: 'line',
+    //         data: supplyline_low_data_array
+    //     },
+    //     {   
+    //         name: 'demandline_high',
+    //         type: 'line',
+    //         data: demandline_high_data_array
+    //     },
+    //     {   
+    //         name: 'demandline_low',
+    //         type: 'line',
+    //         data: demandline_low_data_array
+    //     }
+    //     ],
+    //     chart: {
+    //         height: 465,
+    //         type: 'line',
+    //         animations: {
+    //             enabled:false
+    //         }
+    //     },
+    //     stroke: {
+    //         width: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2,2,2]
+    //     },
+    //     colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
+    //         // text: 'CandleStick Chart - Category X-axis',
+    //         title: {
+    //         align: 'left'
+    //     },
 
-        legend: {
-            show: true,
-        },
+    //     legend: {
+    //         show: true,
+    //     },
 
-        fill:{
-            type:'solid',
-            colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
-            opacityFrom:[1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1,0.1,0.1,0.1],
-            // opacityTo:[1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1,0.1,0.1,0.1]
-        },
-        xaxis: {
-            datetimeUTC: false,
-            // categories: categories_data_array,
+    //     fill:{
+    //         type:'solid',
+    //         colors: ['rgb(128, 0, 255)', 'rgb(128, 0, 255)', 'rgb(249, 124, 0)', 'rgb(255, 0, 255)', 'rgb(192, 192, 192)','rgb(192, 192, 192)','rgb(0, 255, 255)','rgb(0, 0, 0)','rgb(0, 0, 0)','rgb(255, 0, 0)','rgb(255, 0, 0)','rgb(27, 179, 7)','rgb(27, 179, 7)'],
+    //         opacityFrom:[1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1,0.1,0.1,0.1],
+    //         // opacityTo:[1, 1, 1, 1, 1, 1, 1, 1, 1, 0.1,0.1,0.1,0.1]
+    //     },
+    //     xaxis: {
+    //         datetimeUTC: false,
+    //         // categories: categories_data_array,
         
-            // tickAmount:  90,
-            labels: {
-                show:false,
-                rotate: -90,
-                    formatter: function(val) {
-                        return dayjs(val).format('MM/DD')
-                    }
-            },
-            type: 'datetime',
-            // min: new Date('2021-10-20').getTime(),
-            tooltip: {
-                // enabled: false
-                enabled: true
-            },
-            // type: 'category'
+    //         // tickAmount:  90,
+    //         labels: {
+    //             show:false,
+    //             rotate: -90,
+    //                 formatter: function(val) {
+    //                     return dayjs(val).format('MM/DD')
+    //                 }
+    //         },
+    //         type: 'datetime',
+    //         // min: new Date('2021-10-20').getTime(),
+    //         tooltip: {
+    //             // enabled: false
+    //             enabled: true
+    //         },
+    //         // type: 'category'
 
-        },
-        yaxis: {
-            tooltip: {
-                enabled: true
-            },
-            labels: {
+    //     },
+    //     yaxis: {
+    //         tooltip: {
+    //             enabled: true
+    //         },
+    //         labels: {
 
-                formatter: function(val) {
-                    return Math.round(val)
-                    // return val;
-                }
-            },
-            type: 'category'
-        },
-        grid: {
-            show: true,      // you can either change hear to disable all grids
-            xaxis: {
-                lines: {
-                show: false  //or just here to disable only x axis grids
-                }
-            },  
-            yaxis: {
-                lines: { 
-                show: false  //or just here to disable only y axis
-                }
-            },   
-        },
+    //             formatter: function(val) {
+    //                 return Math.round(val)
+    //                 // return val;
+    //             }
+    //         },
+    //         type: 'category'
+    //     },
+    //     grid: {
+    //         show: true,      // you can either change hear to disable all grids
+    //         xaxis: {
+    //             lines: {
+    //             show: false  //or just here to disable only x axis grids
+    //             }
+    //         },  
+    //         yaxis: {
+    //             lines: { 
+    //             show: false  //or just here to disable only y axis
+    //             }
+    //         },   
+    //     },
         
-        };
+    //     };
 
-        var chart1 = new ApexCharts(document.querySelector("#CandleStickChart"), options);
-        chart1.render();
-        prev_candle.push(chart1)
+    //     var chart1 = new ApexCharts(document.querySelector("#CandleStickChart"), options);
+    //     chart1.render();
+    //     prev_candle.push(chart1)
 
 
 
@@ -917,120 +935,201 @@
         })
       }
 
-      anychart.onDocumentReady(function () {
+      let anyChartDrawFunc = ()=>{
+            anychart.onDocumentReady(function () {
 
-        // set the data
-        table = anychart.data.table();
-        table.addData(Candlestick_data_array1);
-        var chart = anychart.stock();
-        var plot = chart.plot();
+                // Candlestick_data_array1
+                table = anychart.data.table();
+                table.addData(Candlestick_data_array1);
 
-        var Candle = plot.candlestick(
-            table.mapAs({
-            open: 1,
-            high: 2,
-            low: 3,
-            close: 4
+                // Short_EMA_data_array
+                Short_EMA_data_array_table = anychart.data.table();
+                Short_EMA_data_array_table.addData(Short_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+
+                // Medium_EMA_data_array
+                Medium_EMA_data_array_table = anychart.data.table();
+                Medium_EMA_data_array_table.addData(Medium_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+
+                // Long_EMA_data_array
+                Long_EMA_data_array_table = anychart.data.table();
+                Long_EMA_data_array_table.addData(Long_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+
+
+                // vamp_data_array
+                vamp_data_array_table = anychart.data.table();
+                vamp_data_array_table.addData(vamp_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+
+                // Support_data_array
+                Support_data_array_table = anychart.data.table();
+                Support_data_array_table.addData(Support_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+
+                // Resistance_data_array
+                Resistance_data_array_table = anychart.data.table();
+                Resistance_data_array_table.addData(Resistance_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
+
+
+                var chart = anychart.stock();
+                var plot = chart.plot();
+
+                var Short_EMA = plot.line(
+                    Short_EMA_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+
+                Short_EMA.name('Short_EMA').stroke('1.5 rgb(128, 0, 255)');
+                var Medium_EMA = plot.line(
+                    Medium_EMA_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Medium_EMA.name('Medium_EMA').stroke('1.5 rgb(249, 124, 0)');
+
+                var Long_EMA = plot.line(
+                    Long_EMA_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Long_EMA.name('Long_EMA').stroke('1.5 rgb(255, 0, 255)');
+
+
+
+                var vamp = plot.line(
+                    vamp_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                vamp.name('vamp').stroke('1.5 rgb(0, 255, 255)');
+
+                var Support = plot.line(
+                    Support_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Support.name('Support').stroke('1.5 rgb(192, 192, 192)');
+
+                var Resistance = plot.line(
+                    Resistance_data_array_table.mapAs({ 
+                        // x: 0, 
+                        value: 1
+                    })
+                );
+                Resistance.name('Resistance').stroke('1.5 rgb(192, 192, 192)');
+
+                var Candle = plot.candlestick(
+                    table.mapAs({
+                        open: 1,
+                        high: 2,
+                        low: 3,
+                        close: 4
+                    })
+                );
+                Candle.name('Candle');
+                Candle.legendItem().iconType('rising-falling');
+
+                Candle.fallingFill("rgb(255, 0, 0)");
+                Candle.fallingStroke("rgb(255, 0, 0)");
+                Candle.risingFill("rgb(77, 167, 75)");
+                Candle.risingStroke("rgb(77, 167, 75)");
+
+                var annotation = plot.annotations();
+                // supplyline_high -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: supplyline_high_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: supplyline_high_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['y'],
+                    stroke: '4 rgb(255, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // supplyline_low -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: supplyline_low_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: supplyline_low_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['y'],
+                    stroke: '4 rgb(255, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // demandline_high -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: demandline_high_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: demandline_high_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['y'],
+                    stroke: '4 rgb(77, 167, 75)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // demandline_low -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: demandline_low_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: demandline_low_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['y'],
+                    stroke: '4 rgb(77, 167, 75)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+                // bottom_value -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: bottom_value_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: bottom_value_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['y'],
+                    stroke: '1.5 rgb(0, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+
+                // top_value_data -:
+                annotation.line({
+                    // X - part of the first anchor
+                    xAnchor: top_value_data_array[0]['x'],
+                    // Y - part of the first anchor
+                    valueAnchor: top_value_data_array[0]['y'],
+                    // X - part of the second anchor
+                    secondXAnchor: top_value_data_array[top_value_data_array.length-1]['x'],
+                    // Y - part of the second anchor
+                    secondValueAnchor: top_value_data_array[top_value_data_array.length-1]['y'],
+                    stroke: '1.5 rgb(0, 0, 0)'
+                    // disable interaction with Annotation
+                }).allowEdit(false);
+
+
+                chart.container('Candlestick1');
+                // initiate chart drawing
+                chart.draw();
             })
-        );
-        Candle.name('Candle');
-        Candle.legendItem().iconType('rising-falling');
-        Candle.tooltip().format(function () {
-            return tooltipFormatter(this, true);
-        });
-            
-        var annotation = plot.annotations();
-        // supplyline_high -:
-        annotation.line({
-            // X - part of the first anchor
-            xAnchor: supplyline_high_data_array[0]['x'],
-            // Y - part of the first anchor
-            valueAnchor: supplyline_high_data_array[0]['y'],
-            // X - part of the second anchor
-            secondXAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['x'],
-            // Y - part of the second anchor
-            secondValueAnchor: supplyline_high_data_array[supplyline_high_data_array.length-1]['y'],
-            stroke: '2 #6E9C4E'
-            // disable interaction with Annotation
-        }).allowEdit(false);
-
-        // supplyline_low -:
-        annotation.line({
-            // X - part of the first anchor
-            xAnchor: supplyline_low_data_array[0]['x'],
-            // Y - part of the first anchor
-            valueAnchor: supplyline_low_data_array[0]['y'],
-            // X - part of the second anchor
-            secondXAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['x'],
-            // Y - part of the second anchor
-            secondValueAnchor: supplyline_low_data_array[supplyline_low_data_array.length-1]['y'],
-            stroke: '2 #6E9C4E'
-            // disable interaction with Annotation
-        }).allowEdit(false);
-
-        // demandline_high -:
-        annotation.line({
-            // X - part of the first anchor
-            xAnchor: demandline_high_data_array[0]['x'],
-            // Y - part of the first anchor
-            valueAnchor: demandline_high_data_array[0]['y'],
-            // X - part of the second anchor
-            secondXAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['x'],
-            // Y - part of the second anchor
-            secondValueAnchor: demandline_high_data_array[demandline_high_data_array.length-1]['y'],
-            stroke: '2 #6E9C4E'
-            // disable interaction with Annotation
-        }).allowEdit(false);
-
-        // demandline_low -:
-        annotation.line({
-            // X - part of the first anchor
-            xAnchor: demandline_low_data_array[0]['x'],
-            // Y - part of the first anchor
-            valueAnchor: demandline_low_data_array[0]['y'],
-            // X - part of the second anchor
-            secondXAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['x'],
-            // Y - part of the second anchor
-            secondValueAnchor: demandline_low_data_array[demandline_low_data_array.length-1]['y'],
-            stroke: '2 #6E9C4E'
-            // disable interaction with Annotation
-        }).allowEdit(false);
-
-        // bottom_value -:
-        annotation.line({
-            // X - part of the first anchor
-            xAnchor: bottom_value_data_array[0]['x'],
-            // Y - part of the first anchor
-            valueAnchor: bottom_value_data_array[0]['y'],
-            // X - part of the second anchor
-            secondXAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['x'],
-            // Y - part of the second anchor
-            secondValueAnchor: bottom_value_data_array[bottom_value_data_array.length-1]['y'],
-            stroke: '2 #6E9C4E'
-            // disable interaction with Annotation
-        }).allowEdit(false);
-
-        
-        // top_value_data -:
-        annotation.line({
-            // X - part of the first anchor
-            xAnchor: top_value_data_array[0]['x'],
-            // Y - part of the first anchor
-            valueAnchor: top_value_data_array[0]['y'],
-            // X - part of the second anchor
-            secondXAnchor: top_value_data_array[top_value_data_array.length-1]['x'],
-            // Y - part of the second anchor
-            secondValueAnchor: top_value_data_array[top_value_data_array.length-1]['y'],
-            stroke: '2 #6E9C4E'
-            // disable interaction with Annotation
-        }).allowEdit(false);
-
-
-        chart.container('Candlestick1');
-        // initiate chart drawing
-        chart.draw();
-    })
-      
+    }
+      anyChartDrawFunc();
 
     </script>
 <script src="{% static 'js/home.js' %}"></script>

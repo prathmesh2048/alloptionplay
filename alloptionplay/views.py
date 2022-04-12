@@ -10,6 +10,7 @@ db_list = []
 strategies_list = []
 chart_data_list = []
 d_chart_data_list = []
+Fri_Exp_list = []
 
 def defaults():
     global Ticker_list
@@ -56,6 +57,10 @@ def defaults():
     
     print("d_chart_data_list => ",d_chart_data_list)
 
+    sql_command_Fri_Exp_list = "select distinct expires_friday from alloptionplays.alloptionplay_data"
+    cursor.execute(sql_command_Fri_Exp_list)
+    Fri_Exp_list = list(list(x)[0] for x in cursor.fetchall())
+    print(Fri_Exp_list)
 
 
 
@@ -120,7 +125,8 @@ def home(request):
             'db_list':db_list,
             'strategies_list':strategies_list,
             'chartdata_obj':chart_data_list,
-            'd_chart_data_list':d_chart_data_list
+            'd_chart_data_list':d_chart_data_list,
+            'Fri_Exp_list':Fri_Exp_list
 
         })
     # print("chart_data_list = > ",chart_data_list)
@@ -131,7 +137,8 @@ def home(request):
         'db_list':db_list,
         'strategies_list':strategies_list,
         'chartdata_obj':chart_data_list,
-        'd_chart_data_list':d_chart_data_list
+        'd_chart_data_list':d_chart_data_list,
+        'Fri_Exp_list':Fri_Exp_list
     }
     return render(request,template,context)
 
