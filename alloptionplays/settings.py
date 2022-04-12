@@ -89,9 +89,9 @@ DATABASES = {
         'PORT': '3306',
         # 'USER': 'root',
         # 'PASSWORD': 'titan#12',
-        # 'USER': 'Alloption_user',
+        'USER': 'Alloption_user',
         'PASSWORD': 'd1zr15B~',
-        'USER': 'alloptionplays',
+        # 'USER': 'alloptionplays',
         # 'PASSWORD': 'alloptionplays@123',
     }
 }
