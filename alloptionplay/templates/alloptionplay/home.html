@@ -203,15 +203,15 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td id="blankFrie" onclick="handleFri(this)" class="table-success frie_success">
+                                                <td id="blankFrie" onclick="handleFri(this)">
                                                     BLANK
                                                 </td>
                                             </tr>
                                                 {% for frie in Fri_Exp_list %}
                                                
-                                                {% if forloop.counter == 1 %}
+                                                {% if frie == "Y" %}
                                                 <tr>
-                                                    <td id="{{frie}}" onclick="handleFri(this)">
+                                                    <td id="{{frie}}" class="table-success frie_success" onclick="handleFri(this)">
                                                         {{frie}}
                                                     </td>
                                                 </tr>
@@ -293,49 +293,51 @@
             <div class="information">
             
                 <div style="font-size: 0.9em;" class="text-center mt-1">
-                Ticker:&nbsp;
+                Ticker:&nbsp;&nbsp;
                 {% for d in d_chart_data_list %}
                     {% if forloop.counter0 == 7 %}
                         {{d}}
                     {% endif %}
                 {% endfor %}&nbsp;
-                Industry : 
+                Industry: &nbsp;&nbsp;
                 {% for d in d_chart_data_list %}
                     {% if forloop.counter0 == 0 %}
                         {{d}}
                     {% endif %}
-                {% endfor %}
-                &nbsp;
-                Name&nbsp; :
+                {% endfor %}&nbsp;
+                
+                Name:&nbsp;&nbsp;
                 {% for d in d_chart_data_list %}
                     {% if forloop.counter0 == 1 %}
                         {{d}}
                     {% endif %}
                 {% endfor %} &nbsp;
-                Resistance Line&nbsp; :
+                Resistance Line:&nbsp;&nbsp;
                 {% for d in d_chart_data_list %}
                     {% if forloop.counter0 == 6 %}
                         {{ d}}  
                     {% endif %}
                 {% endfor %}&nbsp;
-                support Line&nbsp; :
+                support Line:&nbsp;&nbsp;
                 {% for d in d_chart_data_list %}
                     {% if forloop.counter0 == 5 %}
                         {{ d}}  
                     {% endif %}
                 {% endfor %}&nbsp;
-                ATR &nbsp; :
+                ATR:&nbsp;&nbsp;
                 {% for d in d_chart_data_list %}
                 {% if forloop.counter0 == 2 %}
                     {{d}}
                 {% endif %}
                 {% endfor %} &nbsp;
-                EPSDate&nbsp; : {% for d in d_chart_data_list %}
+                EPSDate:&nbsp;&nbsp;
+                {% for d in d_chart_data_list %}
                 {% if forloop.counter0 == 3 %}
                     {{d}}
                 {% endif %}
                 {% endfor %} &nbsp;
-                Time&nbsp; :{% for d in d_chart_data_list %}
+                Time:&nbsp;&nbsp;
+                {% for d in d_chart_data_list %}
                 {% if forloop.counter0 == 4 %}
                     {{d}}
                 {% endif %}
