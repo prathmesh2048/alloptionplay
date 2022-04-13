@@ -197,28 +197,28 @@ let populateCharts = (data)=>{
 
     document.getElementsByClassName('information')[0].innerHTML = ''
     document.getElementsByClassName('information')[0].innerHTML += `
-              <p>
-                <p style="font-size: 0.9em;" class="text-center">
+            
+                <div style="font-size: 0.9em;" class="text-center mt-1">
+                  
+                  Ticker:&nbsp;&nbsp; ${heading_obj[7]} &nbsp;
+                  
+                  Industry:&nbsp;&nbsp; ${heading_obj[0]}&nbsp;
+                  
+                  Name:&nbsp;&nbsp; ${heading_obj[1]}&nbsp;
+                  
+                  Resistance Line:&nbsp;&nbsp;${heading_obj[6]}&nbsp;
+                  
+                  Support Line:&nbsp;&nbsp; ${heading_obj[5]}&nbsp;
+                  
+                  ATR:&nbsp;&nbsp; ${heading_obj[2]}&nbsp;
+                  
+                  EPSDate:&nbsp;&nbsp; ${heading_obj[3]}&nbsp;
+                  
+                  Time:&nbsp;&nbsp;${heading_obj[4]}&nbsp;
+                  
 
-                  Ticker:${heading_obj[7]}
-                  &nbsp;
-                  Industry : ${heading_obj[0]}
-                  &nbsp;
-                  Name: ${heading_obj[1]}
-                  &nbsp;
-                  Resistance Line:${heading_obj[6]}
-                  &nbsp;
-                  support Line: ${heading_obj[5]}
-                  &nbsp;
-                  ATR: ${heading_obj[2]}
-                  &nbsp;
-                  EPSDate: ${heading_obj[3]}
-                  &nbsp;
-                  Time:${heading_obj[4]}
-                  &nbsp;&nbsp;
-
-                </p>
-            </p>
+                </div>
+            
             `
     Candlestick_data_array = [];
     chartdata.forEach(ele => {

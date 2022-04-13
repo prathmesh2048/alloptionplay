@@ -109,7 +109,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for date in chartdata_obj %}
+                                    {% for date in chartdata_obj reversed  %}
                                     {% if forloop.counter == 1 %}
                                     <tr>
                                         <td id="{{date.0}}" onclick="RightDateHandler(this,this.id)"
@@ -318,7 +318,7 @@
                         {{ d}}  
                     {% endif %}
                 {% endfor %}&nbsp;
-                support Line:&nbsp;&nbsp;
+                Support Line:&nbsp;&nbsp;
                 {% for d in d_chart_data_list %}
                     {% if forloop.counter0 == 5 %}
                         {{ d}}  
