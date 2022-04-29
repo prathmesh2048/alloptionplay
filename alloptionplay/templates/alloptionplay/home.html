@@ -249,14 +249,14 @@
                                             {% for db in db_list %}
                                             {% if forloop.counter == 1 %}
                                             <tr>
-                                                <td id="{{db}}" onclick=""
+                                                <td id="{{db}}" onclick="handleDB(this)"
                                                     class="table-success db_success">
                                                     {{db}}
                                                 </td>
                                             </tr>
                                             {% else %}
                                             <tr>
-                                                <td id="{{db}}Right">
+                                                <td id="{{db}}" onclick="handleDB(this)">
                                                     {{db}}
                                                 </td>
                                             </tr>

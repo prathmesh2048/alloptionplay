@@ -33,6 +33,9 @@ let ticker = $(".ticker_success").attr("id");
 let stat = $(".stat_success").attr("id");
 console.log(stat);
 
+let db = $(".db_success").attr("id");
+console.log(db);
+
 let fri = $(".friexp").is(":checked") === false ? "" : "Y";
 console.log("fri", fri);
 
@@ -51,6 +54,17 @@ let handleFri = (ele)=>{
   }
   
   console.log("frie is now => ",ele.id)
+  getStrategies("NA");
+  getTickers("NA");
+}
+
+let handleDB = (ele)=>{
+  $(".db_success").removeAttr("class");
+  $(ele).addClass("db_success table-success");
+  
+  db = ele.id;
+  
+  console.log("DB is now => ",ele.id)
   getStrategies("NA");
   getTickers("NA");
 }
@@ -77,6 +91,7 @@ let getStrategies = (ele) => {
       Ticker: ticker,
       Stat: stat,
       Fri: frie,
+      DB:db,
       csrfmiddlewaretoken: csrftoken,
     },
     success: function (data) {
@@ -137,6 +152,7 @@ let getTickers = (ele) => {
       Ticker: ticker,
       Stat: stat,
       Fri: frie,
+      DB:db,
       csrfmiddlewaretoken: csrftoken,
     },
     success: function (data) {
@@ -181,6 +197,7 @@ let getChartData = (ele) => {
       Ticker: ticker,
       Stat: stat,
       Fri: fri,
+      DB:db,
       csrfmiddlewaretoken: csrftoken,
     },
     success: function (data) {
@@ -567,6 +584,7 @@ let populateCharts = (data)=>{
     
   ])
   anychart.onDocumentReady(function () {
+    
     table.addData(Candlestick_data_array1);
     Short_EMA_data_array_table.addData(Short_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));
     Medium_EMA_data_array_table.addData(Medium_EMA_data_array.map((ele)=>{return [ele['x'],ele['y']]}));

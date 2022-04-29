@@ -1,8 +1,6 @@
 from django.db import models
 from sqlalchemy import null
 
-
-
 class info(models.Model):
     db = models.CharField(max_length=250,null=True)
     country_ticker_pk = models.CharField(max_length=250,null=True)
@@ -54,6 +52,7 @@ class info(models.Model):
         indexes = [
             models.Index(fields=['ticker',]),
             models.Index(fields=['date',]),
+            models.Index(fields=['db',]),
         ]
 
 class data(models.Model):
@@ -79,4 +78,5 @@ class data(models.Model):
             models.Index(fields=['strategy',]),
             models.Index(fields=['list_date',]),
             models.Index(fields=['ticker',]),
+            models.Index(fields=['db',]),
         ]
